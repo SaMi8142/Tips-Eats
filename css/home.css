@@ -25,7 +25,7 @@ body {
 .left-section {
   position: relative;
   background-color: #ffffff;
-  width: 26.94%;
+  width: 23%;
   height: 100vh;
 }
 
@@ -57,7 +57,7 @@ body {
   padding-left: 3vh;
   font-size: 1.2vw;
   font-weight: 100;
-  width: 94%;
+  width: 92.3%;
   transition: border-bottom 1s ease; /* Smooth transition for the border */
   border-bottom: #ffffff 2px solid;
 }
@@ -75,6 +75,7 @@ body {
   background-color: #ffe9d7;
   border-radius: 2vw;
   height: 5vw;
+  gap: 10px;
 }
 
 .profiletag-pic {
@@ -106,7 +107,7 @@ body {
 
 .profiletag-button {
   background-color: #ffe9d7;
-  margin: 1vw 0 0 0;
+  margin: 1vw 10px 0 0;
   padding: 0;
   width: 3vw;
   height: 3vw;
@@ -249,7 +250,7 @@ body {
 
 .middle-section {
   background-color: #eeeeee;
-  width: 44.79%;
+  width: 50%;
   height: 100vh;
   margin-left: 1%;
   margin-right: 1%;
