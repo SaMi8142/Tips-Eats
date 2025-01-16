@@ -121,6 +121,7 @@ body {
 
 .profiletag-button:hover {
   background-color: #b1b1b1;
+
 }
 
 .dropdown-content {
@@ -145,9 +146,6 @@ body {
 }
 .dropdown-content a:hover {
   background-color: #ffd1a9;
-}
-.profiletag:hover .dropdown-content {
-  display: block;
 }
 
 .profile {

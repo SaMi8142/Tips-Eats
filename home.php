@@ -41,6 +41,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href='css/home.css'>
+    <script src="js/main.js"></script>
     <title>Main</title>
 </head>
 <div class="container">
@@ -77,8 +78,8 @@ if (isset($_SESSION['user_id'])) {
     <p>@<?php echo $username; ?></p>
 </div>
 
-            <button class="profiletag-button">···</button>
-            <div class="dropdown-content"> <a href="index.php">Log Out</a> </div>
+            <button class="profiletag-button" onclick="popup_logout()">···</button>
+            <div class="dropdown-content" id="dropdown-content"> <a href="index.php">Log Out</a> </div>
         </div>
     </div>
 
