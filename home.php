@@ -119,17 +119,13 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </form>
 
-        <!-- Sample Post here! -->
-
-        
-
+        <!-- Sample Post here! -->   
 
         <div class="post-section">
         <?php include 'backend/fetchposts.php'; ?>
           
 </div>
     </div>
-
 
 
     <!-- Right Section -->
