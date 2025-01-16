@@ -37,7 +37,6 @@ if ($result->num_rows > 0) {
             echo '                <button class="like">Like</button>';
             echo '                <button class="comment">Comment</button>';
             echo '                <button class="follow">Follow</button>';
-            echo '                <button class="follow">Report</button>';
             echo '                <button class="order">Make an order</button>';
             echo '            </div>';
         }
