@@ -4,23 +4,12 @@ $username = "root";
 $password = "";
 $dbname = "tips&eats";
 
-// PDO connection
-try {
-    $dsn = "mysql:host=$servername;dbname=$dbname";
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("PDO connection failed: " . $e->getMessage());
-}
-
-// MySQLi connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check MySQLi connection
+// Check connection
 if ($conn->connect_error) {
-    die("MySQLi connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
-
 
 /*
 CREATE TABLE users (
@@ -44,6 +33,19 @@ CREATE TABLE users (
     postal_code VARCHAR(10) NOT NULL,
     is_admin BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+CREATE TABLE Posts (
+    post_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    post_pic VARCHAR(255),
+    post_content VARCHAR(255),
+    profile_pic VARCHAR(255),
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    username VARCHAR(50),
+    date TIMESTAMP
+);
+
 
 */
 
