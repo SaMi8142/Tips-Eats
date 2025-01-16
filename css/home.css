@@ -348,6 +348,7 @@ body {
   box-sizing: border-box; /* Prevent padding from affecting the width */
   font-size: 1vw;
   border-top: #ffd1a9 2px solid;
+  border-bottom: #ffd1a9 2px solid;
   font-family: "Poppins", sans-serif;
 }
 
