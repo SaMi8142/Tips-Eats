@@ -68,6 +68,16 @@ CREATE TABLE Comments (
     FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE, -- Link to Posts table
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE  -- Link to Users table
 );
+
+CREATE TABLE Follows (
+    follow_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,  -- The user who is being followed
+    follower_id INT NOT NULL,  -- The user who is following
+    followed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp of when the follow occurred
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (follower_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
 */
 
 ?>
