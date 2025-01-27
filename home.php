@@ -40,10 +40,11 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href='css/home.css'>
-    <script src="js/main.js"></script>
+    <link rel="stylesheet" href='css/main.css'>
+    <link rel="stylesheet" href='css/comment.css'> 
     <title>Main</title>
 </head>
+<body>
 <div class="container">
 
     <!--Left Section -->
@@ -79,7 +80,11 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
             <button class="profiletag-button" onclick="popup_logout()">···</button>
-            <div class="dropdown-content" id="dropdown-content"> <a href="index.php">Log Out</a> </div>
+            <div class="dropdown-content" id="dropdown-content"> 
+                <a href="index.php">Log Out</a> 
+                <a href="mhome.php">My Post</a>
+            </div>
+           
         </div>
     </div>
 
@@ -89,11 +94,16 @@ if (isset($_SESSION['user_id'])) {
             <a href="home.php" class="headtitle-newsfeed">
                 <p>NewsFeed</p>
             </a>
-            <a href="following.php" class="headtitle-follow">
-                <p>Following</p>
+            <a href="fhome.php" class="headtitle-follow">
+             <p>Following</p>
             </a>
         </div>
-        <!-- Post Form here! -->
+
+
+        <!-- Sample Post here! -->
+
+       <div class="post-section">
+             <!-- Post Form here! -->
         <form action="backend/post.php" method="post" enctype="multipart/form-data">
         <div class="postform">
             <div class="post-card">
@@ -119,19 +129,54 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
     </form>
-
-        <!-- Sample Post here! -->
-
-        
-
-
-        <div class="post-section">
+    <div id='post'>
         <?php include 'backend/fetchposts.php'; ?>
-          
+</div>    
 </div>
+    </div>  
+
+<!-- Comment Modal -->
+<div id="comment-modal" class="comment-modal" onclick="closeComment(event)">
+    <div class="comment-body" onclick="event.stopPropagation();">
+        <div>
+            <form class="comment-form" id="commentForm" onsubmit="submitComment(event)">
+                <div class="post-card">
+                    <div class="post-card-pic">
+                        <img src="<?= $profile_img ?>" alt="profile" class="profile">
+                    </div>
+                    <input type="hidden" id="first_name" name="first_name" value="<?= $first_name ?>">
+                    <input type="hidden" id="last_name" name="last_name" value="<?= $last_name ?>">
+                    <input type="hidden" id="username" name="username" value="<?= $_SESSION['username']; ?>">
+                    <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_img ?>">
+                    <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
+                    <input type="hidden" id="post_id" name="post_id" value="">
+                    <textarea class="comment-box" rows="1" style="resize: none;" placeholder="Share your thoughts..." id="comment_content" name="comment_content" required></textarea>
+                    <button class="comment-button" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sample comments here -->
+        <div class="comment-section">
+            <div class="post-container">
+                <div class="post-container-profile">
+                    <div>
+                        <img src="img/Avatar Image.png" alt="profile" class="profile">
+                    </div>
+                    <div class="post-container-content">
+                        <h3>Allen Siddayao · 4 hrs ago</h3>
+                        <p>@allenibba123</p>
+                    </div>
+                    <button class="comment-like">Like</button>
+                    <span class="comment-like-count">0</span>
+                </div>
+                <div class="post-container-body">
+                    <pre>Hey foodies! 🌟 I just whipped up the fluffiest pancakes ever, and I couldn't wait to share the recipe with you all! Perfect for a cozy breakfast or brunch. Here's how you can make them too:</pre>
+                </div>
+            </div>
+        </div>
     </div>
-
-
+</div>
 
     <!-- Right Section -->
 
@@ -245,8 +290,14 @@ if (isset($_SESSION['user_id'])) {
 
 </div>
 
-<body>
 
+
+
+
+
+<script src="js/main.js"></script>
+<script src="js/followingpost.js"></script>
 </body>
 
 </html>
+

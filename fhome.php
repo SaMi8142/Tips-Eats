@@ -40,7 +40,8 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href='css/main.css'>
+    <link rel="stylesheet" href='css/comment.css'> 
     <title>Main</title>
 </head>
 <body>
@@ -89,22 +90,92 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
-            <a href="following.php" class="headtitle-following">
-                <p>Following</p>
+            <a href="home.php" class="headtitle-newsfeed">
+                <p>NewsFeed</p>
+            </a>
+            <a href="fhome.php" class="headtitle-follow">
+             <p>Following</p>
             </a>
         </div>
-        <!-- sample followings here! -->
-        <div class="following-section">
-           
-        <div id= "following">
-        <?php include 'backend/fetchfollowing.php'; ?>
+
+
+        <!-- Sample Post here! -->
+
+       <div class="post-section">
+             <!-- Post Form here! -->
+        <form action="backend/post.php" method="post" enctype="multipart/form-data">
+        <div class="postform">
+            <div class="post-card">
+                <div class="post-card-pic">
+                    <img src="<?= $profile_img ?>" alt="profile" class="profile">
+                </div>
+
+                <input type="hidden" id="first_name" name="first_name" value="<?php echo $first_name; ?>">
+                <input type="hidden" id="last_name" name="last_name" value="<?php echo $last_name; ?>">
+                <input type="hidden" id="username" name="username" value="<?php echo $username; ?>">
+                <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_img ?>">
+                <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+                <textarea class="input-box" rows="1" placeholder="Share your recipes and ideas.." id="post_content" name="post_content" required></textarea>
+            </div>
+            <div class="post-button">
+                <div class="post-button-left">
+                    <label for="post_pic">Image</label>
+                    <input type="file" id="post_pic" name="post_pic" accept="image/*" required>
+                </div>
+                <button type="submit" class="post-button-right">
+                    <p>Post</p>
+                </button>
+            </div>
         </div>
-             
+    </form>
+    <div id='post'>
+        <?php include 'backend/fetchfollowingposts.php'; ?>
+</div>    
+</div>
+    </div>  
+
+<!-- Comment Modal -->
+<div id="comment-modal" class="comment-modal" onclick="closefComment(event)">
+    <div class="comment-body" onclick="event.stopPropagation();">
+        <div>
+            <form class="comment-form" id="commentForm" onsubmit="submitComment(event)">
+                <div class="post-card">
+                    <div class="post-card-pic">
+                        <img src="<?= $profile_img ?>" alt="profile" class="profile">
+                    </div>
+                    <input type="hidden" id="first_name" name="first_name" value="<?= $first_name ?>">
+                    <input type="hidden" id="last_name" name="last_name" value="<?= $last_name ?>">
+                    <input type="hidden" id="username" name="username" value="<?= $_SESSION['username']; ?>">
+                    <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_img ?>">
+                    <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
+                    <input type="hidden" id="post_id" name="post_id" value="">
+                    <textarea class="comment-box" rows="1" style="resize: none;" placeholder="Share your thoughts..." id="comment_content" name="comment_content" required></textarea>
+                    <button class="comment-button" type="submit">Submit</button>
+                </div>
+            </form>
         </div>
-       
+
+        <!-- Sample comments here -->
+        <div class="comment-section">
+            <div class="post-container">
+                <div class="post-container-profile">
+                    <div>
+                        <img src="img/Avatar Image.png" alt="profile" class="profile">
+                    </div>
+                    <div class="post-container-content">
+                        <h3>Allen Siddayao · 4 hrs ago</h3>
+                        <p>@allenibba123</p>
+                    </div>
+                    <button class="comment-like">Like</button>
+                    <span class="comment-like-count">0</span>
+                </div>
+                <div class="post-container-body">
+                    <pre>Hey foodies! 🌟 I just whipped up the fluffiest pancakes ever, and I couldn't wait to share the recipe with you all! Perfect for a cozy breakfast or brunch. Here's how you can make them too:</pre>
+                </div>
+            </div>
+        </div>
     </div>
-
-
+</div>
 
     <!-- Right Section -->
 
@@ -219,8 +290,13 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 
+
+
+
+
 <script src="js/main.js"></script>
 <script src="js/followingpost.js"></script>
 </body>
 
 </html>
+

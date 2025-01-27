@@ -5,7 +5,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();  // Start the session if it's not started
 }
 
-$sql = "SELECT * FROM Posts ORDER BY date DESC";
+$user_id = $_SESSION['user_id'];  
+
+$sql = "SELECT * FROM Posts where user_id = $my_id ORDER BY date DESC";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -42,20 +44,14 @@ if ($result->num_rows > 0) {
         $comment_count = $comment_row['comment_count'];
         $comment_stmt->close();
 
-        // Check if the user is following the author of the post
-        // Hardcoded $user_id for the logged-in user
-$follow_check_sql = "SELECT 1 FROM Follows WHERE user_id = ? AND follower_id = $user_id";
-$follow_check_stmt = $conn->prepare($follow_check_sql);
-
-// Bind only $row['user_id'] since $user_id is hardcoded
-$follow_check_stmt->bind_param("i", $row['user_id']);
-
-$follow_check_stmt->execute();
-$follow_check_result = $follow_check_stmt->get_result();
-
-$is_following = $follow_check_result->num_rows > 0;
-
-$follow_check_stmt->close();
+        
+        $follow_check_sql = "SELECT 1 FROM Follows WHERE user_id = ? AND follower_id = $user_id";
+        $follow_check_stmt = $conn->prepare($follow_check_sql);
+        $follow_check_stmt->bind_param("i", $row['user_id']);
+        $follow_check_stmt->execute();
+        $follow_check_result = $follow_check_stmt->get_result();
+        $is_following = $follow_check_result->num_rows > 0;
+        $follow_check_stmt->close();
 
 
         // Set button class and text based on whether the user has liked the post
@@ -108,7 +104,7 @@ $follow_check_stmt->close();
             echo '    <span class="count" id="like-count-' . $post_id . '">' . $like_count . '</span>';
             echo '                   <button class="comment" onclick="openComment(' . htmlspecialchars($row['post_id']) . ')">Comment</button>';
             echo '    <span class="count" id="comment-count-' . $post_id . '">' . $comment_count . '</span>';
-            echo '<button class="' . $follow_button_class . '" id="follow-button-' . $row['post_id'] . '"  onclick="toggleFollow(' . $row['user_id'] . ', ' . $user_id . ', ' . htmlspecialchars($row['post_id']) . ')">' . $follow_button_text . '</button>';
+            echo '<button class="' . $follow_button_class . '" id="follow-button-' . $row['post_id'] . '"  onclick="togglemFollow(' . $row['user_id'] . ', ' . $user_id . ', ' . htmlspecialchars($row['post_id']) . ')">' . $follow_button_text . '</button>';
             echo '                    <button class="report">Report</button>';
             echo '                    <button class="order">Make an order</button>';
             echo '                </div>';
