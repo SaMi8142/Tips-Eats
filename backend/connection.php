@@ -46,7 +46,28 @@ CREATE TABLE Posts (
     date TIMESTAMP
 );
 
+CREATE TABLE Likes ( 
+    like_id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    user_id INT NOT NULL,
+    liked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
 
+CREATE TABLE Comments (
+    comment_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each comment
+    post_id INT NOT NULL,                     -- Links the comment to a specific post
+    user_id INT NOT NULL,                     -- ID of the user who made the comment
+    comment_content TEXT NOT NULL,            -- The actual comment content
+    profile_pic VARCHAR(255),                 -- User's profile picture
+    first_name VARCHAR(100) NOT NULL,         -- First name of the user
+    last_name VARCHAR(100) NOT NULL,          -- Last name of the user
+    username VARCHAR(100) NOT NULL,           -- Username of the user
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the comment was created
+    FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE, -- Link to Posts table
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE  -- Link to Users table
+);
 */
 
 ?>
