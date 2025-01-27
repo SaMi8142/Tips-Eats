@@ -85,6 +85,7 @@ $follow_check_stmt->close();
             echo '            <img src="backend/' . htmlspecialchars($row['post_pic']) . '" alt="post image">';
             echo '            <div class="post-container-react">';
             echo '                <div class="post-container-react-buttons">';
+
             echo '    <button class="' . $button_class . '" id="like-button-' . $post_id . '" onclick="toggleLike(' . $post_id . ')">';
             echo '        ' . $button_text . '
                      </button>';
@@ -93,6 +94,10 @@ $follow_check_stmt->close();
             echo '    <span class="count" id="comment-count-' . $post_id . '">' . $comment_count . '</span>';
             echo '                    <button class="follow" onclick="buttondeletepost(' . htmlspecialchars($row['post_id']) . ')">Delete</button>';
             echo '                    <button class="report">Report</button>';
+            echo '                    <button class="like">Like</button>';
+            echo '                    <button class="comment">Comment</button>';
+            echo '                    <button class="follow">Follow</button>';
+            echo '                    <button class="report" value="'. htmlspecialchars($row['post_id']) .'" onclick="alert(\''. htmlspecialchars($row['post_id']) .'\')">Report</button>';
             echo '                    <button class="order">Make an order</button>';
             echo '                </div>';
             echo '            </div>';
