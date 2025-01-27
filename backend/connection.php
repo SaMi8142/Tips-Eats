@@ -78,6 +78,15 @@ CREATE TABLE Follows (
     FOREIGN KEY (follower_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE CommentLikes (
+    like_id INT AUTO_INCREMENT PRIMARY KEY,
+    comment_id INT NOT NULL,
+    user_id INT NOT NULL,
+    liked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (comment_id) REFERENCES Comments(comment_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
 */
 
 ?>

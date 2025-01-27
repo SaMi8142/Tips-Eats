@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 $user_id = $_SESSION['user_id'];  
 
-$sql = "SELECT * FROM Posts where user_id = $my_id ORDER BY date DESC";
+$sql = "SELECT * FROM Posts where user_id = $user_id ORDER BY date DESC";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
