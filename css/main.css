@@ -179,7 +179,7 @@ body {
 
 .recommended {
   padding: 1vw 1.5vw 0 1.5vw;
-  height: 75vw;
+  height: 90vh;
   display: block;
   overflow: auto;
 }
@@ -268,13 +268,15 @@ body {
 }
 
 .headtitle-newsfeed {
-  text-decoration: underline;
   color: black;
   padding-right: 2vw;
   transition: padding-right 0.3s ease;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.3s ease, padding-left 0.3s ease;
 }
 
 .headtitle-newsfeed:hover {
+  text-decoration-color: black;
   padding-right: 2vw; /* Adjust the value as needed */
 }
 
@@ -295,6 +297,10 @@ body {
 .headtitle-follow:hover {
   text-decoration-color: black;
   padding-left: 2vw; /* Adjust the value as needed */
+}
+
+.underline{
+  text-decoration: underline;
 }
 
 .postform {
@@ -450,7 +456,7 @@ body {
 }
 
 .post-container-body pre {
-  margin: 0;
+  margin: 0 0 1vh 0;
   font-size: 1vw;
   white-space: pre-wrap; /* Ensure long lines wrap */
   word-wrap: break-word; /* Ensure long words break to fit the container */
@@ -522,6 +528,17 @@ body {
   background-color: #ffd1a9;
   border-color: transparent;
   transition: background-color 1s ease; /* Smooth transition for the border */
+}
+
+.price {
+  margin: 0 0 0 0;
+  font-weight: bold;
+  font-size: 1vw;
+  color: #222222;
+  height: 3vw;
+  font-family: "Poppins", sans-serif;
+  background-color: #ffd1a9;
+  border-color: transparent;
 }
 
 /* Following page in middle section*/
@@ -609,7 +626,7 @@ body {
   font-size: 1vw;
 }
 
-.following-button-following {
+.following-button {
   position: absolute;
   height: 1.8vw;
   width: 7vw;
@@ -617,31 +634,40 @@ body {
   top: 30%;
   font-size: 0.9vw;
   font-weight: 750;
+  border-color: transparent;
+  font-family: "Poppins", sans-serif;
+  border-radius: 2vw;
+}
+
+.following-search-box{
+  font-family: "Poppins", sans-serif;
+  padding-top: 0.6vw;
+  padding-bottom: 0.6vw;
+  font-size: 1.2vw;
+  width: 100%;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: #ffd1a9 1px solid;
+}
+
+.following-search-box:focus {
+  outline: none;
+}
+
+.unfollower{
   background-color: #ffd1a9;
-  border-color: transparent;
-  font-family: "Poppins", sans-serif;
-  border-radius: 2vw;
 }
 
-.following-button-following:hover {
+.unfollower:hover {
   background-color: #ffe9d7;
 }
 
-.following-button-follow {
-  position: absolute;
-  height: 2vw;
-  width: 7vw;
-  right: 0;
-  top: 30%;
-  font-size: 0.9vw;
-  font-weight: 750;
+.follower{
   background-color: #ffe9d7;
-  border-color: transparent;
-  font-family: "Poppins", sans-serif;
-  border-radius: 2vw;
 }
 
-.following-button-follow:hover {
+.follower:hover {
   background-color: #ffd1a9;
 }
 
@@ -663,7 +689,7 @@ body {
 }
 
 .order-section {
-  height: 55vw;
+  height: 90vh;
   background-color: #ffffff;
   padding: 0;
   display: block;
@@ -794,6 +820,97 @@ body {
 .order-button:hover{
   background-color: #ffd1a9;
  
+}
+
+.order-delete-button{
+  border-radius: 0.7vw;
+  position: absolute;
+  right: 30%;
+  text-align: center;
+  font-size: 1vw;
+  font-weight: 500;
+  border: 0.15vw solid #ddd;
+  width: 10vw;
+  height: 2.9vw;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 0.3vw 0.5vw rgba(0, 0, 0, 0.1);
+  transition: background-color 0.5s ease;
+ 
+}
+
+.order-delete-button:hover{
+  background-color: #ffd1a9;
+}
+
+.order-cancelled{
+  color: #222222bf;
+  position: absolute;
+  right: 0;
+  bottom: -9vh;
+  margin-bottom: 1vh;
+  text-align: center;
+  font-size: 1.2vw;
+  font-weight: 500;
+  height: 2.9vw;
+  font-family: "Poppins", sans-serif;
+}
+
+.order-status{
+  color: #222222bf;
+  position: absolute;
+  left: 1%;;
+  bottom: -11vh;
+  text-align: center;
+  font-size: 1.2vw;
+  font-weight: 500;
+  height: 2.9vw;
+  font-family: "Poppins", sans-serif;
+}
+
+.order-status-middle{
+  color: #222222bf;
+  position: absolute;
+  left: 42%;
+  bottom: -4vh;
+  text-align: center;
+  font-size: 1.2vw;
+  font-weight: 500;
+  height: 2.9vw;
+  font-family: "Poppins", sans-serif;
+}
+
+.order-status-select {
+  width: 100%;
+  padding: 7px;
+  border: 0.15vw solid #ddd;
+  border-radius: 0.7vw;
+  background-color: white;
+  font-size: 1vw;
+  font-weight: 500;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 0.3vw 0.5vw rgba(0, 0, 0, 0.1);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+  transition: background-color 0.5s ease;
+  float: right;
+}
+
+.order-status-select:focus {
+  border-color: #ffd1a9;
+  outline: none;
+}
+
+.order-status-select:hover {
+  background-color: #ffd1a9;
+}
+
+.order-status-select option {
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
 }
 
 .order-form{

@@ -59,14 +59,14 @@ if (isset($_SESSION['user_id'])) {
             <a href="home.php">
                 <p>Home</p>
             </a>
-            <a href="">
-                <p>Friends</p>
-            </a>
             <a href="following.php">
                 <p>Following</p>
             </a>
-            <a href="order.php">
-                <p>Marketplace</p>
+            <a href="marketplace.php">
+                <p>MarketPlace</p>
+            </a>
+            <a href="orders.php">
+                <p>My Orders</p>
             </a>
         </div>
 
@@ -75,14 +75,16 @@ if (isset($_SESSION['user_id'])) {
             <img src="<?= $profile_img ?>" alt="profile" class="profile"></img>
             </div>
             <div class="profiletag-content">
-    <h3><?php echo $first_name . ' ' . $last_name; ?></h3>
-    <p>@<?php echo $username; ?></p>
-</div>
+                 <h3><?php echo $first_name . ' ' . $last_name; ?></h3>
+                 <p>@<?php echo $username; ?></p>
+            </div>
 
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content"> 
-                <a href="index.php">Log Out</a> 
-                <a href="mhome.php">My Post</a>
+                <a href="morders.php">Product Orders</a>
+                <a href="mmarketplace.php">My Products</a>
+                <a href="mhome.php">My Posts</a>
+                <a href="index.php">Log Out</a>
             </div>
         </div>
     </div>
@@ -91,9 +93,9 @@ if (isset($_SESSION['user_id'])) {
     <div class="middle-section">
         <div class="header headtitle">
             <a href="home.php" class="headtitle-newsfeed">
-                <p>NewsFeed</p>
+                <p>News Feed</p>
             </a>
-            <a href="fhome.php" class="headtitle-follow">
+            <a href="fhome.php" class="headtitle-follow underline">
              <p>Following</p>
             </a>
         </div>

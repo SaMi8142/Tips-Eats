@@ -3,7 +3,7 @@
 
 function fetchFollowing() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'backend/fetchfollowingposts.php', true);
+    xhr.open('GET', 'backend/fetchfollowing.php', true);
     xhr.onload = function () {
         if (xhr.status === 200) {
             const followingPostsElement = document.getElementById('following');
@@ -24,6 +24,33 @@ function fetchFollowing() {
 }
 
 
+//searchbar JS for the following here 
+
+// Search Following Function
+function searchFollowing(query) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'backend/searchfollowing.php?query=' + encodeURIComponent(query), true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById('following').innerHTML = xhr.responseText;
+        } else {
+            console.error("Failed to fetch search results:", xhr.status);
+        }
+    };
+    xhr.onerror = function () {
+        console.error("Request failed.");
+    };
+    xhr.send();
+}
+
+// Add Event Listener for Search Input
+document.getElementById('search_following').addEventListener('input', function(event) {
+    const query = event.target.value;
+    searchFollowing(query);
+});
+
+
+
 // Custom Following Post Buttons Here:
 
 // Follow/Unfollow Button JS
@@ -37,7 +64,7 @@ function toggleFollowing(userId, followerId, postId) {
         return;
     }
   
-    const isFollowing = followButton.classList.contains('following');
+    const isFollowing = followButton.classList.contains('follower');
     const action = isFollowing ? 'unfollow' : 'follow';
   
     // Debug: Log action and IDs
@@ -55,14 +82,15 @@ function toggleFollowing(userId, followerId, postId) {
                 if (response.success) {
                     // Toggle the button text and class
                     if (action === 'follow') {
-                        followButton.classList.add('following');
+                        followButton.classList.remove('unfollower');
+                        followButton.classList.add('follower');
                         followButton.textContent = 'Unfollow';
                     } else if (action === 'unfollow') {
-                        followButton.classList.remove('following');
+                        followButton.classList.remove('follower');
+                        followButton.classList.add('unfollower');
                         followButton.textContent = 'Follow';
                     }
-    
-                    fetchmPosts();
+          
                 } else {
                     console.error("Error from server:", response.error);
                     alert('Error toggling follow. Please try again.');

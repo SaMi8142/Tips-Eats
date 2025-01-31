@@ -32,7 +32,6 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +42,6 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="css/main.css">
     <title>Main</title>
 </head>
-<body>
 <div class="container">
 
     <!--Left Section -->
@@ -71,19 +69,23 @@ if (isset($_SESSION['user_id'])) {
 
         <div class="profiletag">
             <div class="profiletag-pic">
-            <img src="<?= $profile_img ?>" alt="profile" class="profile"></img>
+                <img src="<?= $profile_img ?>" alt="profile" class="profile"></img>
             </div>
             <div class="profiletag-content">
-    <h3><?php echo $first_name . ' ' . $last_name; ?></h3>
-    <p>@<?php echo $username; ?></p>
-</div>
+                <h3>
+                    <?php echo $first_name . ' ' . $last_name; ?>
+                </h3>
+                <p>@
+                    <?php echo $username; ?>
+                </p>
+            </div>
 
             <button class="profiletag-button" onclick="popup_logout()">···</button>
-            <div class="dropdown-content" id="dropdown-content"> 
+            <div class="dropdown-content" id="dropdown-content">
                 <a href="morders.php">Product Orders</a>
                 <a href="mmarketplace.php">My Products</a>
                 <a href="mhome.php">My Posts</a>
-                <a href="index.php">Log Out</a>
+                <a href="index.php">Log Out</a>              
             </div>
         </div>
     </div>
@@ -91,25 +93,24 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
-            <a href="following.php" class="headtitle-following">
-                <p>Following</p>
+            <a href="orders.php" class="headtitle-order">
+                <p>Product Order Details</p>
             </a>
         </div>
-        <!-- sample followings here! -->
-        <div class="following-section">
+        <div class="order-section">
         <div>
             <form class="comment-form" id="followingForm">
                 <div class="post-card">
-                    <input class="following-search-box" placeholder="Searching for someone?" id="search_following" name="search_following" />
+                <input class="following-search-box" placeholder="Finding your orders???" id="search_morder" name="search_morder" />
                 </div>
             </form>
         </div>
-        <div id= "following">
-        <?php include 'backend/fetchfollowing.php'; ?>
+            <!-- sample Orders here -->
+            <div id="orders">
+            <?php include 'backend/fetchmorders.php'; ?>
+
+            </div>
         </div>
-             
-        </div>
-       
     </div>
 
 
@@ -225,10 +226,11 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
 </div>
-
-
 <script src="js/main.js"></script>
-<script src="js/following.js"></script>
+<script src="js/morder.js"></script>
+
+<body>
+
 </body>
 
 </html>

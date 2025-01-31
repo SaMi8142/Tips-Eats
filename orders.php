@@ -56,133 +56,61 @@ if (isset($_SESSION['user_id'])) {
             <a href="home.php">
                 <p>Home</p>
             </a>
-            <a href="">
-                <p>Friends</p>
-            </a>
             <a href="following.php">
                 <p>Following</p>
             </a>
-            <a href="order.php">
-                <p>Marketplace</p>
+            <a href="marketplace.php">
+                <p>MarketPlace</p>
+            </a>
+            <a href="orders.php">
+                <p>My Orders</p>
             </a>
         </div>
 
         <div class="profiletag">
             <div class="profiletag-pic">
-            <img src="<?= $profile_img ?>" alt="profile" class="profile"></img>
+                <img src="<?= $profile_img ?>" alt="profile" class="profile"></img>
             </div>
             <div class="profiletag-content">
-    <h3><?php echo $first_name . ' ' . $last_name; ?></h3>
-    <p>@<?php echo $username; ?></p>
-</div>
+                <h3>
+                    <?php echo $first_name . ' ' . $last_name; ?>
+                </h3>
+                <p>@
+                    <?php echo $username; ?>
+                </p>
+            </div>
 
-            <button class="profiletag-button">···</button>
-            <div class="dropdown-content"> <a href="index.php">Log Out</a> </div>
+            <button class="profiletag-button" onclick="popup_logout()">···</button>
+            <div class="dropdown-content" id="dropdown-content">
+                <a href="morders.php">Product Orders</a>
+                <a href="mmarketplace.php">My Products</a>
+                <a href="mhome.php">My Posts</a>
+                <a href="index.php">Log Out</a>              
+            </div>
         </div>
     </div>
 
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
-            <a href="order.php" class="headtitle-order">
+            <a href="orders.php" class="headtitle-order">
                 <p>Order Details</p>
             </a>
         </div>
         <div class="order-section">
+        <div>
+            <form class="comment-form" id="followingForm">
+                <div class="post-card">
+                    <input class="following-search-box" placeholder="Finding your orders???" id="search_order" name="search_order" />
+                </div>
+            </form>
+        </div>
             <!-- sample Orders here -->
-            <div class="order-card">
-                <div class="order-card-header">
-                    <div class="order-card-profile">
-                        <div>
-                            <img src="img/pexels-ash-craig-122861-376464.jpg" alt="profile" class="product-pic"></img>
-                        </div>
-                    
-                        <div class="order-card-content">
-                            <h3>Fluffy Pancake Delight!</h3>
-                            <p>Estimated Delivery Time</p>
-                            <p>2 min</p>
-                            <h4 class="product-price">P 110</h4>
-                        </div>
-                        </div>
-                        <form class="order-form">
-                            <div class="counter">
-                                <input type="number" value="1" min="0">
-                              </div>
-                              <button class="order-button">Confirm Order</button>
-                        </form>
-                </div>
-                </div>
+            <div id="orders">
+            <?php include 'backend/fetchorders.php'; ?>
 
-                <div class="order-card">
-                    <div class="order-card-header">
-                        <div class="order-card-profile">
-                            <div>
-                                <img src="img/Leche-Flan-with-Cream-Cheese-7.jpg" alt="profile" class="product-pic"></img>
-                            </div>
-                        
-                            <div class="order-card-content">
-                                <h3>Fiesta De Leche!</h3>
-                                <p>Estimated Delivery Time</p>
-                                <p>40 min</p>
-                                <h4 class="product-price">P 250</h4>
-                            </div>
-                            </div>
-                            <form class="order-form">
-                                <div class="counter">
-                                    <input type="number" value="1" min="0">
-                                  </div>
-                                  <button class="order-button">Confirm Order</button>
-                            </form>
-                    </div>
-                    </div>
-
-                    <div class="order-card">
-                        <div class="order-card-header">
-                            <div class="order-card-profile">
-                                <div>
-                                    <img src="img/tini-mac-cheese-4894w.jpg" alt="profile" class="product-pic"></img>
-                                </div>
-                            
-                                <div class="order-card-content">
-                                    <h3>Mac and Cheeze!</h3>
-                                    <p>Estimated Delivery Time</p>
-                                    <p>30 min</p>
-                                    <h4 class="product-price">P 100</h4>
-                                </div>
-                                </div>
-                                <form class="order-form">
-                                    <div class="counter">
-                                        <input type="number" value="1" min="0">
-                                      </div>
-                                      <button class="order-button">Confirm Order</button>
-                                </form>
-                        </div>
-                        </div>
-
-                        <div class="order-card">
-                            <div class="order-card-header">
-                                <div class="order-card-profile">
-                                    <div>
-                                        <img src="img/AR-9599-Quick-Easy-Brownies-ddmfs-4x3-697df57aa40a45f8a7bdb3a089eee2e5.jpg" alt="profile" class="product-pic"></img>
-                                    </div>
-                                
-                                    <div class="order-card-content">
-                                        <h3>Dark Brownies!</h3>
-                                        <p>Estimated Delivery Time</p>
-                                        <p>15 min</p>
-                                        <h4 class="product-price">P 140</h4>
-                                    </div>
-                                    </div>
-                                    <form class="order-form">
-                                        <div class="counter">
-                                            <input type="number" value="1" min="0">
-                                          </div>
-                                          <button class="order-button">Confirm Order</button>
-                                    </form>
-                            </div>
-                            </div>
             </div>
-       
+        </div>
     </div>
 
 
@@ -299,6 +227,8 @@ if (isset($_SESSION['user_id'])) {
 
 </div>
 <script src="js/main.js"></script>
+<script src="js/order.js"></script>
+
 <body>
 
 </body>

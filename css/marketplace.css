@@ -1,0 +1,138 @@
+/* market search bar */
+
+.marketplace-search-box{
+    font-family: "Poppins", sans-serif;
+    padding-top: 0.6vw;
+    padding-bottom: 0.6vw;
+    font-size: 1.2vw;
+    width: 100%;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: #ffd1a9 1px solid;
+    transition: opacity 0.5s ease, height 0.5s ease;
+    resize: vertical; 
+  }
+  
+  .marketplace-search-box:focus {
+    outline: none;
+  }
+
+
+    /* add product button */
+
+  .add-product-button{
+    width: 100%;
+    margin: 1vh 0;  
+    float: center;
+    font-size: 1vw;
+    color: #222222;
+    height: 3vw;
+    font-family: "Poppins", sans-serif;
+    background-color: #ffd1a9;
+    border-color: transparent;
+    transition: background-color 1s ease; 
+  }
+
+  .add-product-button:hover{
+    background-color: #994700;
+    color: #ffffff;
+  }
+
+  
+
+    /* add product modal */ 
+
+  .add-product-modal {  
+    display: none; /* Hidden by default */  
+    position: fixed;  
+    z-index: 1;  
+    left: 0;  
+    top: 0;  
+    width: 100%;  
+    height: 100%;  
+    background-color: rgba(0, 0, 0, 0.4);  
+    justify-content: center;  
+    align-items: center;  
+    transition: opacity 0.3s ease;  
+  }
+  
+        .add-product-body {  
+          background-color: white;  
+          padding: 10px;  
+          border-radius: 10px;  
+          width: 40%;  
+          height: 70%;  
+          text-align: center;  
+        }  
+
+        .add-product-body h2 {
+            font-family: "Poppins", sans-serif;
+            font-size: 1.5vw;
+            color: #222222;
+            margin-bottom: 1vw;
+            text-align: center;
+        }
+
+        /* add product form */
+
+.productform {
+            background-color: #ffffff;
+            display: column;
+            padding-left: 2vw;
+            padding-right: 2vw;
+    }
+
+    .marketplace-input-box{
+        font-family: "Poppins", sans-serif;
+        margin-bottom: 5vh;
+        padding-top: 0.6vw;
+        padding-bottom: 0.6vw;
+        font-size: 1.2vw;
+        width: 100%;
+        border-top: transparent;
+        border-left: transparent;
+        border-right: transparent;
+        border-bottom: #ffd1a9 1px solid;
+        transition: opacity 0.5s ease, height 0.5s ease;
+      }
+      
+      .marketplace-input-box:focus {
+        outline: none;
+      }
+
+      .marketplace-file-box {
+        display: none;
+    }
+    
+    /* Style the custom file input label */
+    .custom-file-label {
+        margin-bottom: 5vh;
+        display: inline-block;
+        padding: 0.6vw 1.2vw;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.2vw;
+        color: #222222;
+        background-color: #ffd1a9;
+        border: 1px solid #ffd1a9;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        float: left; /* Align to the left */
+    }
+    
+    .custom-file-label:hover {
+        background-color: #ffb07c;
+    }
+    
+    /* Style the file name display */
+    .file-name {
+        display: inline-block;
+        padding-top: 1.5vh;
+        margin-left: 1vw;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.2vw;
+        color: #222222;
+        float: left; /* Align to the left */
+    }
+
+      
