@@ -88,8 +88,6 @@ if ($result->num_rows > 0) {
             echo '                   <button class="comment" onclick="openComment(' . htmlspecialchars($row['post_id']) . ')">Comment</button>';
             echo '    <span class="count" id="comment-count-' . $post_id . '">' . $comment_count . '</span>';
             echo '                    <button class="follow" onclick="buttondeletepost(' . htmlspecialchars($row['post_id']) . ')">Delete</button>';
-            echo '                    <button class="report">Report</button>';
-            echo '                    <button class="order">Make an order</button>';
             echo '                </div>';
             echo '            </div>';
             echo '        </div>';
@@ -106,7 +104,6 @@ if ($result->num_rows > 0) {
             echo '    <span class="count" id="comment-count-' . $post_id . '">' . $comment_count . '</span>';
             echo '<button class="' . $follow_button_class . '" id="follow-button-' . $row['post_id'] . '"  onclick="togglemFollow(' . $row['user_id'] . ', ' . $user_id . ', ' . htmlspecialchars($row['post_id']) . ')">' . $follow_button_text . '</button>';
             echo '                    <button class="report">Report</button>';
-            echo '                    <button class="order">Make an order</button>';
             echo '                </div>';
             echo '            </div>';
             echo '        </div>';

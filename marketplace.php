@@ -40,7 +40,9 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href='css/main.css'>
+    <link rel="stylesheet" href='css/comment.css'> 
+    <link rel="stylesheet" href='css/marketplace.css'> 
     <title>Main</title>
 </head>
 <body>
@@ -85,34 +87,75 @@ if (isset($_SESSION['user_id'])) {
                 <a href="mhome.php">My Posts</a>
                 <a href="index.php">Log Out</a>
             </div>
+           
         </div>
     </div>
 
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
-            <a href="following.php" class="headtitle-following">
-                <p>Following</p>
+            <a href="home.php" class="headtitle-newsfeed underline">
+                <p>Products</p>
+            </a>
+            <a href="fhome.php" class="headtitle-follow">
+             <p>CookMark</p>
             </a>
         </div>
-        <!-- sample followings here! -->
-        <div class="following-section">
+
+
+        <!-- Sample Post here! -->
+
+    <div class="post-section">
+    <!-- Post Form here! -->
+    <form action="backend/post.php" method="post" enctype="multipart/form-data">
+        <div class="postform">
+            <div class="post-card">
+                <div class="post-card-pic">
+                    <img src="<?= $profile_img ?>" alt="profile" class="profile">
+                </div>
+                <textarea class="marketplace-search-box" rows="1" style="resize: none;" placeholder="Craving for something???" id="search_marketplace" name="search_marketplace" required></textarea>
+            </div>
+        </div>
+    </form>
+    <button class="add-product-button" onclick="openAddProduct()">Add product</button>
+    <div id='product'>
+        <!-- Products will be loaded here -->
+        <?php include 'backend/fetchproducts.php'; ?>
+    </div>
+</div>
+</div>
+
+<!-- Add Product Modal -->
+<div id="add-product-modal" class="add-product-modal" onclick="closeAddProduct(event)">
+    <div class="add-product-body" onclick="event.stopPropagation();">
         <div>
-            <form class="comment-form" id="followingForm">
-                <div class="post-card">
-                    <input class="following-search-box" placeholder="Searching for someone?" id="search_following" name="search_following" />
+            <h2>Create a <span style="color:#994700;">Product</span></h2> 
+            <form action="backend/addproduct.php" method="post" enctype="multipart/form-data">
+                <div class="productform">
+                    <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+                    <input type="text" class="marketplace-input-box" placeholder="Title" id="product_title" name="product_title" required/>
+                    <div class="custom-file-input">
+                        <label for="product_pic" class="custom-file-label">Choose File</label>
+                        <input type="file" id="product_pic" name="product_pic" class="marketplace-file-box" accept="image/*" required>
+                        <span id="file-name" class="file-name">No file chosen</span>
+                    </div>                 
+                    <textarea class="marketplace-search-box" rows="2" placeholder="Contents" id="product_content" name="product_content" required></textarea>
+                    <input type="number" min="1" class="marketplace-input-box" id="product_price" name="product_price" placeholder="Price" required>
+                    <button class="add-product-button" >Add product</button>
                 </div>
             </form>
         </div>
-        <div id= "following">
-        <?php include 'backend/fetchfollowing.php'; ?>
-        </div>
-             
-        </div>
-       
     </div>
+</div>
 
-
+<!-- review Product Modal -->
+<div id="review-product-modal" class="add-product-modal" onclick="closeReviewProduct(event)">
+    <div class="add-product-body reviewmodal" onclick="event.stopPropagation();">
+        <div>
+            <h2>Product <span style="color:#994700;">Reviews</span></h2> 
+        </div>
+    </div>
+</div>
 
     <!-- Right Section -->
 
@@ -227,8 +270,13 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 
+
+
+
+
 <script src="js/main.js"></script>
-<script src="js/following.js"></script>
+<script src="js/marketplace.js"></script>
 </body>
 
 </html>
+

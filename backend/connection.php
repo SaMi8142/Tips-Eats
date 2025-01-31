@@ -87,6 +87,38 @@ CREATE TABLE CommentLikes (
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE Products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_title VARCHAR(255) NOT NULL,
+    product_content TEXT NOT NULL,
+    product_pic VARCHAR(255),
+    price DECIMAL(10, 2) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    seller_id INT NOT NULL,
+    buyer_id INT NOT NULL,
+    order_title VARCHAR(255) NOT NULL,
+    order_price DECIMAL(10, 2) NOT NULL,
+    order_quantity INT DEFAULT 1,
+    order_finalprice DECIMAL(10, 2) NOT NULL,
+    order_status ENUM('preparing', 'delivering', 'delivered', 'pending') DEFAULT 'pending',
+    buyer_city VARCHAR(255) NOT NULL,
+    buyer_number VARCHAR(20) NOT NULL,
+    buyer_status ENUM('confirmed', 'cancelled', 'pending') DEFAULT 'pending',
+    seller_city VARCHAR(255) NOT NULL,
+    seller_status ENUM('approved', 'rejected', 'pending') DEFAULT 'pending',
+    ordered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE,
+    FOREIGN KEY (seller_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (buyer_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
 */
 
 ?>
