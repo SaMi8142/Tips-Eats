@@ -42,6 +42,7 @@ if (isset($_SESSION['user_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href='css/main.css'>
     <link rel="stylesheet" href='css/comment.css'> 
+    <link rel="stylesheet" href='css/marketplace.css'> 
     <title>Main</title>
 </head>
 <body>
@@ -82,7 +83,6 @@ if (isset($_SESSION['user_id'])) {
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content"> 
             <a href="morders.php">Product Orders</a>
-                <a href="mmarketplace.php">My Products</a>
                 <a href="mhome.php">My Posts</a>
                 <a href="index.php">Log Out</a>
             </div>
@@ -298,6 +298,7 @@ if (isset($_SESSION['user_id'])) {
 
 <script src="js/main.js"></script>
 <script src="js/mypost.js"></script>
+<script src="js/marketplace.js"></script>
 </body>
 
 </html>

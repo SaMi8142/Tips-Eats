@@ -83,7 +83,6 @@ if (isset($_SESSION['user_id'])) {
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content">
                 <a href="morders.php">Product Orders</a>
-                <a href="mmarketplace.php">My Products</a>
                 <a href="mhome.php">My Posts</a>
                 <a href="index.php">Log Out</a>              
             </div>

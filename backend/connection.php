@@ -43,7 +43,8 @@ CREATE TABLE Posts (
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     username VARCHAR(50),
-    date TIMESTAMP
+    date TIMESTAMP,
+    status ENUM('active', 'dismissed', 'reported') DEFAULT 'active'
 );
 
 CREATE TABLE Likes ( 
@@ -95,6 +96,7 @@ CREATE TABLE Products (
     product_pic VARCHAR(255),
     price DECIMAL(10, 2) NOT NULL,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('active', 'dismissed', 'reported') DEFAULT 'active',
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
@@ -118,6 +120,53 @@ CREATE TABLE Orders (
     FOREIGN KEY (seller_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (buyer_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
+
+CREATE TABLE PostReports (
+    report_id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    reported_id INT NOT NULL,
+    reporter_username VARCHAR(50),
+    reported_username VARCHAR(50),
+    report_type VARCHAR(50),
+    report_issue VARCHAR(255),
+    report_description VARCHAR(255),  -- Updated to VARCHAR(255)
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (reported_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE ProductReports (
+    report_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    reported_id INT NOT NULL,
+    reporter_username VARCHAR(50),
+    reported_username VARCHAR(50),
+    report_type VARCHAR(50),
+    report_issue VARCHAR(255),
+    report_description VARCHAR(255),  -- Updated to VARCHAR(255)
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE,
+    FOREIGN KEY (reported_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Reviews (
+    review_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each review
+    product_id INT NOT NULL,                  -- Links the review to a specific product
+    user_id INT NOT NULL,                     -- ID of the user who wrote the review
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5), -- Rating (1 to 5)
+    review_content TEXT NOT NULL,             -- Review content
+    profile_pic VARCHAR(255),                 -- User's profile picture
+    first_name VARCHAR(100) NOT NULL,         -- First name of the user
+    last_name VARCHAR(100) NOT NULL,          -- Last name of the user
+    username VARCHAR(100) NOT NULL,           -- Username of the user
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the review was created
+    FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE, -- Link to Products table
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE  -- Link to Users table
+);
+
+
 
 */
 

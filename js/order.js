@@ -120,4 +120,54 @@ function cancelOrder(orderId) {
 }
 
 
+// Open the review product modal
+function openmyReviewProduct(productId) {
+    document.getElementById('review-product-modal').style.display = 'flex';
+    document.getElementById('product_id').value = productId;
+    console.log("Product_id: " + productId);
+}
 
+// Close the review product modal
+function closemyReviewProduct(event) {
+    if (event && event.target.classList.contains('reviewmodal')) {
+        return;  
+    }
+
+    const addProductModal = document.getElementById('review-product-modal');
+    if (addProductModal) {
+        addProductModal.style.display = 'none';
+    } else {
+        console.error("Add product modal not found.");
+    }
+    console.log("Add product modal closed.");
+    // Fetch and display products when the page loads
+    fetchOrders()
+}
+
+
+// Button to submit reviews
+
+function reviewProduct() {
+    event.preventDefault(); // Prevent default form submission
+
+    let formData = new FormData(document.getElementById("reportform"));
+
+    fetch("backend/review.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Thank you for your review!");
+            document.getElementById("reportform").reset(); // Reset form after submission
+            fetchOrders(); // Refresh the orders
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred while submitting the review.");
+    });
+}

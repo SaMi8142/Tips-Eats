@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 $user_id = $_SESSION['user_id'];  
 
-$sql = "SELECT * FROM Posts where user_id = $user_id ORDER BY date DESC";
+$sql = "SELECT * FROM Posts WHERE user_id = $user_id AND status != 'dismissed' ORDER BY date DESC";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -103,7 +103,7 @@ if ($result->num_rows > 0) {
             echo '                   <button class="comment" onclick="openComment(' . htmlspecialchars($row['post_id']) . ')">Comment</button>';
             echo '    <span class="count" id="comment-count-' . $post_id . '">' . $comment_count . '</span>';
             echo '<button class="' . $follow_button_class . '" id="follow-button-' . $row['post_id'] . '"  onclick="togglemFollow(' . $row['user_id'] . ', ' . $user_id . ', ' . htmlspecialchars($row['post_id']) . ')">' . $follow_button_text . '</button>';
-            echo '                    <button class="report">Report</button>';
+            echo '                    <button class="report" onclick="openReportPost(' . htmlspecialchars($row['user_id']) . ', ' . htmlspecialchars($row['post_id']) . ', \'' . htmlspecialchars($_SESSION['username']) . '\', \'' . htmlspecialchars($row['username']) . '\')">Report</button>';
             echo '                </div>';
             echo '            </div>';
             echo '        </div>';

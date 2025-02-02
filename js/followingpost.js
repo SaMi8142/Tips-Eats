@@ -105,3 +105,21 @@ function closefComment(event) {
     console.log("Modal closed.");
     fetchfollowingPosts();
 }
+
+function reportfollowingPost() {
+    let form = document.getElementById("reportform");
+    let formData = new FormData(form);
+
+    fetch("backend/reportpost.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success or error message
+        if (data.success) {
+            fetchfollowingPosts();
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}

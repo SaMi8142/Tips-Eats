@@ -14,13 +14,14 @@ if (isset($_GET['query'])) {
 
 // Fetch orders from the database with conditional ordering by buyer_status and seller_status
 $sql = "SELECT o.order_id, o.product_id, o.order_title, o.order_price, o.order_quantity, o.order_finalprice, o.order_status, o.buyer_city, o.buyer_number, o.seller_city, o.ordered_at, o.buyer_status, o.seller_status, p.product_pic, p.product_title, p.price, u.first_name, u.last_name, u.username AS seller_username, u.profile_pic, u.region AS seller_region, u.province AS seller_province, u.city AS seller_city, u.barangay AS seller_barangay, u.phone AS seller_phone,
-               CASE 
-                   WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'pending' THEN 1 
-                   WHEN o.seller_status = 'pending' AND o.buyer_status = 'pending' THEN 2 
-                   WHEN o.seller_status = 'rejected' AND o.buyer_status = 'confirmed' THEN 3 
-                   WHEN o.buyer_status = 'cancelled' THEN 4 
-                   ELSE 5 
-               END AS order_priority
+               CASE
+                    WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'approved' THEN 1  
+                    WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'pending' THEN 2 
+                    WHEN o.seller_status = 'pending' AND o.buyer_status = 'pending' THEN 3 
+                    WHEN o.seller_status = 'rejected' AND o.buyer_status = 'confirmed' THEN 4 
+                    WHEN o.buyer_status = 'cancelled' THEN 5 
+                    ELSE 6  -- Any other case
+                END AS order_priority
         FROM Orders o 
         JOIN Products p ON o.product_id = p.product_id 
         JOIN Users u ON o.seller_id = u.user_id 
@@ -228,7 +229,7 @@ $result = mysqli_query($conn, $sql);
                 echo '        </div>';
                 echo '        <div class="order-form">';
                 echo '        <p class="order-status">Delivered</p>';
-                echo '        <button class="order-button" onclick="orderDelivered(' . htmlspecialchars($row['order_id']) . ')">Review</button>';
+                echo '        <button class="order-button" onclick="openmyReviewProduct(' . htmlspecialchars($row['product_id']) . ')">Review</button>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';

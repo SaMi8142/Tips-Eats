@@ -24,6 +24,41 @@ function fetchProducts() {
 }
 
 
+// Add event listener to the search marketplace textarea
+document.addEventListener('DOMContentLoaded', function() {
+    const searchMarketplace = document.getElementById('search_marketplace');
+    if (searchMarketplace) {
+        searchMarketplace.addEventListener('input', function(event) {
+            const query = event.target.value;
+            searchProduct(query);
+            console.log("Searching for products with query:", query);
+        });
+    } else {
+        console.error("Element with ID 'search_marketplace' not found.");
+    }
+});
+
+// Function to search and display products based on the query
+function searchProduct(query) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'backend/searchproduct.php?query=' + encodeURIComponent(query), true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const productsElement = document.getElementById('product');
+            if (productsElement) {
+                productsElement.innerHTML = xhr.responseText;
+            } else {
+                console.error("Element with ID 'products' not found.");
+            }
+        } else {
+            console.error("Failed to fetch search results:", xhr.status);
+        }
+    };
+    xhr.onerror = function () {
+        console.error("Request failed.");
+    };
+    xhr.send();
+}
 
 
 
@@ -124,16 +159,38 @@ function orderProduct(seller_id, product_id) {
 
 
 
-// Review Modal Section
-
-
-
-
-
 // Open the review product modal
-function openReviewProduct() {
-    document.getElementById('review-product-modal').style.display = 'flex';
+function openReviewProduct(product_id) {
+    console.log("Fetching reviews for product_id:", product_id);
+
+    let modal = document.getElementById("review-product-modal");
+    if (!modal) {
+        console.error("Error: 'review-product-modal' not found.");
+        return;
+    }
+
+    modal.style.display = "flex"; // Show modal
+
+    let commentSection = document.getElementById("comment-section");
+    if (!commentSection) {
+        console.error("Error: 'comment-section' not found in the modal.");
+        return;
+    }
+
+    fetch(`backend/fetchreviews.php?product_id=${product_id}`)
+    .then(response => response.text())
+    .then(data => {
+        console.log("Fetched Reviews (Raw):", data); // ✅ Log the HTML to Console
+
+        commentSection.innerHTML = data; // Insert reviews
+
+        console.log("Updated comment-section:", commentSection.innerHTML); // ✅ Log to check inserted content
+    })
+    .catch(error => {
+        console.error("Error fetching reviews:", error);
+    });
 }
+
 
 // Close the review product modal
 function closeReviewProduct(event) {
@@ -151,3 +208,60 @@ function closeReviewProduct(event) {
     // Fetch and display products when the page loads
     fetchProducts();
 }
+
+// Open the report product modal
+function openReportProduct(userId, productId, reporterusername, reportedusername) {
+    document.getElementById('report-product-modal').style.display = 'flex';
+    const reportModal = document.getElementById('report-product-modal');
+    if (reportModal) {
+        // Set the product ID, user ID, reporter username, and reported username in the modal
+        document.getElementById('reported_user_id').value = userId;
+        document.getElementById('product_id').value = productId;
+        document.getElementById('reporter_username').value = reporterusername;
+        document.getElementById('reported_username').value = reportedusername;
+        reportModal.style.display = 'flex';
+        console.log(userId, productId, reporterusername, reportedusername);
+    } else {
+        console.error("Report product modal not found.");
+    }
+}
+
+// Close the report product modal
+function closeReportProduct(event) {
+    if (event && event.target.classList.contains('reportmodal')) {
+        return;  
+    }
+
+    const addProductModal = document.getElementById('report-product-modal');
+    if (addProductModal) {
+        addProductModal.style.display = 'none';
+    } else {
+        console.error("Add product modal not found.");
+    }
+    console.log("report product modal closed.");
+    // Fetch and display products when the page loads
+    fetchProducts();
+}
+
+
+
+function reportProduct() {
+    let form = document.getElementById("reportform");
+    let formData = new FormData(form);
+
+    fetch("backend/reportproduct.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success or error message
+        if (data.success) {
+            fetchProducts();
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+
+

@@ -83,7 +83,6 @@ if (isset($_SESSION['user_id'])) {
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content"> 
                 <a href="morders.php">Product Orders</a>
-                <a href="mmarketplace.php">My Products</a>
                 <a href="mhome.php">My Posts</a>
                 <a href="index.php">Log Out</a>
             </div>
@@ -94,11 +93,8 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
-            <a href="home.php" class="headtitle-newsfeed underline">
+            <a href="home.php" class="headtitle-order">
                 <p>Products</p>
-            </a>
-            <a href="fhome.php" class="headtitle-follow">
-             <p>CookMark</p>
             </a>
         </div>
 
@@ -132,7 +128,7 @@ if (isset($_SESSION['user_id'])) {
             <h2>Create a <span style="color:#994700;">Product</span></h2> 
             <form action="backend/addproduct.php" method="post" enctype="multipart/form-data">
                 <div class="productform">
-                    <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+                    <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
                     <input type="text" class="marketplace-input-box" placeholder="Title" id="product_title" name="product_title" required/>
                     <div class="custom-file-input">
                         <label for="product_pic" class="custom-file-label">Choose File</label>
@@ -153,6 +149,58 @@ if (isset($_SESSION['user_id'])) {
     <div class="add-product-body reviewmodal" onclick="event.stopPropagation();">
         <div>
             <h2>Product <span style="color:#994700;">Reviews</span></h2> 
+            
+
+            <div class="comment-section" id="comment-section">
+                <!-- Reviews will be loaded here -->
+            <div class="post-container">
+                <div class="post-container-profile">
+                    <div>
+                        <img src="img/Avatar Image.png" alt="profile" class="profile">
+                    </div>
+                    <div class="post-container-content">
+                        <h3>Allen Siddayao · 4 hrs ago</h3>
+                        <p>@allenibba123</p>
+                    </div>
+                    <button class="comment-like">Like</button>
+                    <span class="comment-like-count">0</span>
+                </div>
+                <div class="post-container-body">
+                    <pre>Hey foodies! 🌟 I just whipped up the fluffiest pancakes ever, and I couldn't wait to share the recipe with you all! Perfect for a cozy breakfast or brunch. Here's how you can make them too:</pre>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- report Product Modal -->
+<div id="report-product-modal" class="add-product-modal" onclick="closeReportProduct(event)">
+    <div class="report-product-body reportmodal" onclick="event.stopPropagation();">
+        <div>
+            <h2>Product <span style="color:#994700;">Report</span></h2> 
+            <form id="reportform">
+                <div class="productform">
+                    <input type="hidden" id="reported_user_id" name="reported_user_id" value="">
+                    <input type="hidden" id="product_id" name="product_id" value="">
+                    <input type="hidden" id="reporter_username" name="reporter_username" value="">
+                    <input type="hidden" id="reported_username" name="reported_username" value="">
+                    <input type="hidden" id="report_type" name="report_type" value="Product">
+                    <select id="report_issue" name="report_issue" class="marketplace-search-box" required>
+                        <option value="inappropriate_content">Inappropriate Content</option>
+                        <option value="Harrasment">Harrasment</option>
+                        <option value="spam">Spam</option>
+                        <option value="scam">Scam</option>
+                        <option value="misleading_information">Misleading Information</option>
+                        <option value="poser">poser</option>
+                    </select>
+                    <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." required>
+                    <button class="add-product-button" onclick="reportProduct()" >Report Product</button>
+                </div>
+            </form>
+            
         </div>
     </div>
 </div>

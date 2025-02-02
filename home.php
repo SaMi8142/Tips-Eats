@@ -42,6 +42,7 @@ if (isset($_SESSION['user_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href='css/main.css'>
     <link rel="stylesheet" href='css/comment.css'> 
+    <link rel="stylesheet" href='css/marketplace.css'> 
     <title>Main</title>
 </head>
 <body>
@@ -82,7 +83,6 @@ if (isset($_SESSION['user_id'])) {
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content"> 
                 <a href="morders.php">Product Orders</a>
-                <a href="mmarketplace.php">My Products</a>
                 <a href="mhome.php">My Posts</a>
                 <a href="index.php">Log Out</a>
             </div>
@@ -176,6 +176,35 @@ if (isset($_SESSION['user_id'])) {
                     <pre>Hey foodies! 🌟 I just whipped up the fluffiest pancakes ever, and I couldn't wait to share the recipe with you all! Perfect for a cozy breakfast or brunch. Here's how you can make them too:</pre>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- report Post Modal -->
+<div id="report-post-modal" class="add-product-modal" onclick="closeReportPost(event)">
+    <div class="report-post-body reportmodal" onclick="event.stopPropagation();">
+        <div>
+            <h2>Post <span style="color:#994700;">Report</span></h2> 
+            <form id="reportform">
+                <div class="productform">
+                    <input type="hidden" id="reported_user_id" name="reported_user_id" value="">
+                    <input type="hidden" id="product_id" name="product_id" value="">
+                    <input type="hidden" id="reporter_username" name="reporter_username" value="">
+                    <input type="hidden" id="reported_username" name="reported_username" value="">
+                    <input type="hidden" id="report_type" name="report_type" value="Post">
+                    <select id="report_issue" name="report_issue" class="marketplace-search-box" required>
+                        <option value="inappropriate_content">Inappropriate Content</option>
+                        <option value="Harrasment">Harrasment</option>
+                        <option value="spam">Spam</option>
+                        <option value="scam">Scam</option>
+                        <option value="misleading_information">Misleading Information</option>
+                        <option value="poser">poser</option>
+                    </select>
+                    <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." required>
+                    <button class="add-product-button" onclick="reportPost()" >Report Post</button>
+                </div>
+            </form>
+            
         </div>
     </div>
 </div>
@@ -299,6 +328,7 @@ if (isset($_SESSION['user_id'])) {
 
 <script src="js/main.js"></script>
 <script src="js/followingpost.js"></script>
+<script src="js/marketplace.js"></script>
 </body>
 
 </html>
