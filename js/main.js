@@ -354,4 +354,59 @@ function toggleCommentLike(commentId) {
 
 
 
+// Open the report post modal
 
+function openReportPost(userId, postId, reporterusername, reportedusername) {
+    document.getElementById('report-post-modal').style.display = 'flex';
+    const reportModal = document.getElementById('report-post-modal');
+    if (reportModal) {
+        // Set the product ID, user ID, reporter username, and reported username in the modal
+        document.getElementById('reported_user_id').value = userId;
+        document.getElementById('product_id').value = postId; // Ensure this is correctly assigned
+        document.getElementById('reporter_username').value = reporterusername;
+        document.getElementById('reported_username').value = reportedusername;
+        
+        console.log("User ID:", userId, "Post ID:", postId, "Reporter Username:", reporterusername, "Reported Username:", reportedusername);
+        console.log("Post ID input value:", document.getElementById('post_id').value);  // Check if the value is correctly assigned
+    } else {
+        console.error("Report product modal not found.");
+    }
+}
+
+
+// Close the report product modal
+function closeReportPost(event) {
+    if (event && event.target.classList.contains('reportmodal')) {
+        return;  
+    }
+
+    const addProductModal = document.getElementById('report-post-modal');
+    if (addProductModal) {
+        addProductModal.style.display = 'none';
+    } else {
+        console.error("report post modal not found.");
+    }
+    console.log("report product modal closed.");
+    // Fetch and display post when the page loads
+    fetchPosts();
+}
+
+
+
+function reportPost() {
+    let form = document.getElementById("reportform");
+    let formData = new FormData(form);
+
+    fetch("backend/reportpost.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success or error message
+        if (data.success) {
+            fetchPosts();
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}

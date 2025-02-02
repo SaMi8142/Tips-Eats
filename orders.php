@@ -40,6 +40,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href='css/marketplace.css'> 
     <title>Main</title>
 </head>
 <div class="container">
@@ -83,7 +84,6 @@ if (isset($_SESSION['user_id'])) {
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content">
                 <a href="morders.php">Product Orders</a>
-                <a href="mmarketplace.php">My Products</a>
                 <a href="mhome.php">My Posts</a>
                 <a href="index.php">Log Out</a>              
             </div>
@@ -112,6 +112,29 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
+
+    <!-- review Product Modal -->
+    <div id="review-product-modal" class="add-product-modal" onclick="closemyReviewProduct(event)">
+    <div class="report-post-body reviewmodal" onclick="event.stopPropagation();">
+        <div>
+            <h2>Review <span style="color:#994700;">Product</span></h2> 
+            <form id="reportform">
+                <div class="productform">
+                    <input type="hidden" id="product_id" name="product_id" value="">
+                    <textarea id="review_content" row=1 name="review_content" class="marketplace-search-box" placeholder="Share your thoughts..." required></textarea>
+                    <select id="rating" name="rating" class="marketplace-search-box" required>
+                        <option value="1">1 ⭐</option>
+                        <option value="2">2 ⭐</option>
+                        <option value="3">3 ⭐</option>
+                        <option value="4">4 ⭐</option>
+                        <option value="5">5 ⭐</option>
+                    </select>
+                    <button class="add-product-button" onclick="reviewProduct()" >Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 

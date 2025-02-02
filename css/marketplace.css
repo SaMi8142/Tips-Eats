@@ -39,7 +39,24 @@
     color: #ffffff;
   }
 
-  
+   /* report product modal */ 
+
+   .report-product-body {  
+    background-color: white;  
+    padding: 10px;  
+    border-radius: 10px;  
+    width: 40%;  
+    height: auto;  
+    text-align: center;  
+  }  
+
+  .report-product-body h2 {
+      font-family: "Poppins", sans-serif;
+      font-size: 1.5vw;
+      color: #222222;
+      margin-bottom: 1vw;
+      text-align: center;
+  }
 
     /* add product modal */ 
 

@@ -16,13 +16,14 @@ if (isset($_GET['query'])) {
         $sql = "SELECT o.order_id, o.product_id, o.order_title, o.order_price, o.order_quantity, o.order_finalprice, o.order_status, o.buyer_city, o.buyer_number, o.seller_city, o.ordered_at, o.buyer_status, o.seller_status, p.product_pic, p.product_title, p.price, 
         ub.first_name AS buyer_first_name, ub.last_name AS buyer_last_name, ub.username AS buyer_username, ub.profile_pic AS buyer_profile_pic, ub.region AS buyer_region, ub.province AS buyer_province, ub.city AS buyer_city, ub.barangay AS buyer_barangay, ub.phone AS buyer_phone,
         us.first_name AS seller_first_name, us.last_name AS seller_last_name, us.username AS seller_username, us.profile_pic AS seller_profile_pic, us.region AS seller_region, us.province AS seller_province, us.city AS seller_city, us.barangay AS seller_barangay, us.phone AS seller_phone,
-        CASE 
-            WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'pending' THEN 1 
-            WHEN o.seller_status = 'pending' AND o.buyer_status = 'pending' THEN 2 
-            WHEN o.seller_status = 'rejected' AND o.buyer_status = 'confirmed' THEN 3 
-            WHEN o.buyer_status = 'cancelled' THEN 4 
-            ELSE 5 
-        END AS order_priority
+               CASE
+                    WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'approved' THEN 1  
+                    WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'pending' THEN 2 
+                    WHEN o.seller_status = 'pending' AND o.buyer_status = 'pending' THEN 3 
+                    WHEN o.seller_status = 'rejected' AND o.buyer_status = 'confirmed' THEN 4 
+                    WHEN o.buyer_status = 'cancelled' THEN 5 
+                    ELSE 6  -- Any other case
+                END AS order_priority
         FROM Orders o 
         JOIN Products p ON o.product_id = p.product_id 
         JOIN Users ub ON o.buyer_id = ub.user_id 
