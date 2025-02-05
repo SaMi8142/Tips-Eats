@@ -60,10 +60,9 @@ if (mysqli_num_rows($result) > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+    <title>Document</title>
     <link rel="stylesheet" href="css/admin.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="js/admin.js"></script>
 </head>
 <body>
     <div class="main-container">
@@ -78,11 +77,11 @@ if (mysqli_num_rows($result) > 0) {
                     </div>
                     <div id="navbuttons">
                         <div id="account-verif" onclick="window.location.href='adminHome.php'">
-                            <img src="img/house.png" alt="">
+                            <img src="img/house.png" alt="Home-icon">
                             <p>Home</p>
                         </div>
                         <div id="user-reports" onclick="window.location.href='admin.php'">
-                            <img src="img/message-square-warning.png" alt="">
+                            <img src="img/message-square-warning.png" alt="Reports-icon">
                             <p>User Reports</p>
                         </div>
                     </div>
@@ -106,60 +105,12 @@ if (mysqli_num_rows($result) > 0) {
             </div>
         </div>
         <div class="info-page">
-            <div class="title-search">
-                <div id="title">
-                    <div>
-                        <p>Manage&nbsp;</p><p id="title-text">User Reports</p>
-                    </div>
+            <div id="title">
+                <div>
+                    <p>Welcome Admin&nbsp;</p><p id="title-text"><?php echo $first_name; ?>!</p>
                 </div>
-                <div id="search">
-                    <input type="text" name="" id="" placeholder="Search user...">
-                </div>
-            </div>
-            <div class="table">
-                <table>
-                    <thead>
-                        <td>Post ID</td>
-                        <td>Reported ID</td>
-                        <td>Reported Username</td>
-                        <td>Reporter Username</td>
-                        <td>Report Type</td>
-                        <td>Report Issue</td>
-                        <td>Report Description</td>
-                        <td>Action</td>
-                    </thead>
-                    <?php if (empty($data)) { ?>
-                        <tr>
-                            <td colspan="8" style="text-align: center;">No reports at the moment...</td>
-                        </tr>
-                    <?php } else { ?>
-                        <?php foreach ($data as $row) { ?>
-                            <tr>
-                                <td><?php echo $row["post_id"];?></td>
-                                <td><?php echo $row["reported_id"];?></td>
-                                <td><?php echo $row["reported_username"];?></td>
-                                <td><?php echo $row["reporter_username"];?></td>
-                                <td>
-                                    <div class="document-column"><p><?php echo $row["report_type"];?></p></div>
-                                </td>
-                                <td><?php echo $row["report_issue"];?></td>
-                                <td class="reportDesc"><?php echo $row["report_description"]?></td>
-                                <td>
-                                    <div class="action-column">
-                                        <button id="check-btn" onclick="approveReport(<?php echo $row['post_id']; ?>)">
-                                            <img src="img/circle-check.png" alt="">
-                                        </button>
-                                        <button id="x-btn" onclick="disapproveReport(<?php echo $row['post_id']; ?>)">
-                                            <img src="img/circle-x.png" alt="">
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    <?php } ?>
-                </table>
             </div>
         </div>
     </div>
 </body>
-</html> 
+</html>

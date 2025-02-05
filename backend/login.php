@@ -41,7 +41,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
             // Redirect based on is_admin value
             if ($user['is_admin'] == 1) {
-                header("Location: ../admin.php");
+                header("Location: ../adminHome.php");
             } else {
                 header("Location: ../home.php");
             }

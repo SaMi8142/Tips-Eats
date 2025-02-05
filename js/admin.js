@@ -10,3 +10,27 @@ function popup_logout() {
         alr_clicked = false;
     }
 }
+
+function approveReport(post_id) {
+    if (confirm("Are you sure you want to approve this report?")) {
+        fetch("reportApproval.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "approve", post_id: post_id }) // Send ID
+        })
+        .then(response => response.text())
+        .catch(error => console.error("Error:", error));
+    }
+}
+
+function disapproveReport(post_id) {
+    if(confirm("Are you sure you want to disapprove this report?")){
+        fetch("reportApproval.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "disapprove", post_id: post_id })
+        })
+        .then(response => response.text())
+        .catch(error => console.error("Error:", error));
+    }
+}
