@@ -23,10 +23,6 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="remember">
-                        <label class="form-check-label" for="remember">Remember me</label>
-                    </div>
                     <button type="submit" class="btn-custom">Login</button>
                     <p class="text-center mt-3">
                         No Account? <a href="#registrationForm" id="registerLink">Register Here!</a>

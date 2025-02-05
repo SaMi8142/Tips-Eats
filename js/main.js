@@ -3,6 +3,7 @@ const decrement = document.getElementById('decrement');
 const increment = document.getElementById('increment');
 const counterValue = document.getElementById('counterValue');
 var already_clicked = false;
+var nav_clicked = false;
 
 
 decrement.addEventListener('click', (event) => {
@@ -32,9 +33,17 @@ function popup_logout(){
 }
 
 
-
-
-
+function nav_logout(){
+    var nav = document.getElementById("navdown-content");
+  
+    if(nav_clicked){
+      nav.style.display = "none";
+      nav_clicked = false;
+    } else {
+      nav.style.display = "block";
+      nav_clicked = true;
+    }
+  }
 
 
 
@@ -410,3 +419,49 @@ function reportPost() {
     })
     .catch(error => console.error("Error:", error));
 }
+
+// Update modal button
+
+function openUpdatePost(post_id, post_content) {
+    document.getElementById('update-post-modal').style.display = 'flex';
+    
+    // Ensure all elements exist before assigning values
+    document.getElementById('update_post_id').value = post_id;
+    document.getElementById('update_content').value = post_content;
+    
+    console.log(post_id, post_content);
+}
+
+function closeUpdatePost(event){
+    if (event && event.target.classList.contains('updatemodal')) {
+        return;  
+    }
+
+    const addProductModal = document.getElementById('update-post-modal');
+    if (addProductModal) {
+        addProductModal.style.display = 'none';
+    } else {
+        console.error("Add product modal not found.");
+    }
+    console.log("update product modal closed.");
+    // Fetch and display products when the page loads
+}
+
+function updatePost(){
+    let form = document.getElementById("updateform");
+    let formData = new FormData(form);
+
+    fetch("backend/updatepost.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success or error message
+        if (data.success) {
+            fetchPosts();
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+

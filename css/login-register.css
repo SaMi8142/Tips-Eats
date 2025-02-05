@@ -206,3 +206,56 @@ footer p {
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
+
+
+/* Mobile Adjustment */
+@media (max-width: 480px) {
+    .login-container {
+        flex-direction: column; /* Stack items vertically */
+        width: 90%;
+        height: auto; /* Adjust height dynamically */
+    }
+
+    .left-section, .right-section {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .login-form,
+    .registration-form {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .scrollable-box {
+        max-height: 300px; /* Reduce form height on smaller screens */
+    }
+
+    .form-group {
+        margin-left: 1vw;
+        margin-bottom: 1rem;
+    }
+
+    .form-control,
+    .form-control-register {
+        margin-left: 1vw;
+        width: 90%; /* Make inputs full-width */
+        font-size: 14px; /* Slightly smaller font */
+    }
+
+    .btn-custom {
+        width: 100%;
+        font-size: 14px;
+        padding: 0.6rem;
+    }
+
+    .carousel {
+        display: none; /* Hide carousel for better focus on forms */
+    }
+
+    footer {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

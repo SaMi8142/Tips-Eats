@@ -53,6 +53,11 @@
     color: #ffffff;
   }
   
+      .comment-box:focus {
+    outline: none;
+    border: #994700 solid 1px;
+  }
+  
       .comment-box{
      font-family: "Poppins", sans-serif;
      font-size: 1.2vw;
@@ -60,16 +65,6 @@
      width: 25vw;
      margin-right:2vh;
       }
-  
-      .comment-button:hover {
-    background-color: #994700;
-    color: #ffffff;
-  }
-  
-      .comment-box:focus {
-    outline: none;
-    border: #994700 solid 1px;
-  }
 
 
   
@@ -88,6 +83,7 @@
         width: 0;
         background: transparent;
       }
+      
       .comment-section {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -147,3 +143,70 @@
   }
 
  
+
+  @media (max-width: 480px) {
+    .comment-body {  
+      background-color: white;  
+      padding: 10px;  
+      border-radius: 10px;  
+      width: 80%;  
+      height: 50%;  
+      text-align: center;  
+    }  
+
+        .comment-button{
+          background-color: #ffd1a9;
+          border: transparent;
+          font-family: "Poppins", sans-serif;
+          transition: background-color 1s ease; /* Smooth transition for the border */
+          border-radius:1vw;
+      } 
+
+      .comment-button:hover {
+    background-color: #994700;
+    color: #ffffff;
+    }
+
+      .comment-box:focus {
+    outline: none;
+    border: #994700 solid 1px;
+    }
+
+      .comment-box{
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5vw;
+    border: #ffe9d7 solid 1px;
+    width: 47vw;
+    margin-right:1vw;
+      }
+
+      .comment-like{
+        position: absolute;
+        right: 0%;
+        top: 0.6vh;
+        font-size: 3vw;
+        color: #222222;
+        height: 3vh;
+        font-family: "Poppins", sans-serif;
+        background-color: transparent;
+        border-color: transparent;
+        transition: background-color 1s ease; /* Smooth transition for the border */
+      }
+      
+      .comment-like:hover {
+        background-color: #ffffff;
+        color: #222222;
+
+      }
+      
+      .comment-like-count{
+        position: absolute;
+          right: -1%;
+          top: -0.4vh;
+          font-size: 3vw;
+          color: #222222;
+          height: 3vh;
+        }
+
+    
+  }

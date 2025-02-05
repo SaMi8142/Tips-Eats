@@ -90,6 +90,17 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
+        <h3 class="nav-logo">T&<span style="color: #994700;">Es</span></h3>
+        <button class="nav-button" onclick="nav_logout()">···</button>
+            <div class="navdown-content" id="navdown-content"> 
+                <a href="home.php">Home</a>
+                <a href="following.php">Following</a>
+                <a href="marketplace.php">MarketPlace</a>
+                <a href="orders.php">My Orders</a>
+                <a href="morders.php">Product Orders</a>
+                <a href="mhome.php">My Posts</a>
+                <a href="index.php">Log Out</a>
+            </div>
             <a href="following.php" class="headtitle-following">
                 <p>Following</p>
             </a>

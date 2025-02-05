@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert order into database
     $sql = "INSERT INTO Orders (product_id, seller_id, buyer_id, order_title, order_price, order_quantity, order_finalprice, order_status, buyer_city, buyer_number, buyer_status, seller_city, seller_status, ordered_at) 
-            VALUES ('$product_id', '$seller_id', '$buyer_id', '$order_title', '$order_price', '$order_quantity', '$order_finalprice', '$order_status', '$buyer_city', '$buyer_number', '$buyer_status', '$seller_city', '$seller_status', '$ordered_at')";
+            VALUES ('$product_id', '$seller_id', '$buyer_id', '$order_title', '$order_price', '$order_quantity', '$order_finalprice', '$order_status', '$buyer_city', '$buyer_number', '$buyer_status', '$seller_city', '$seller_status', NOW())";
 
     if (mysqli_query($conn, $sql)) {
         echo "Order placed successfully";

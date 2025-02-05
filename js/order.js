@@ -123,7 +123,7 @@ function cancelOrder(orderId) {
 // Open the review product modal
 function openmyReviewProduct(productId) {
     document.getElementById('review-product-modal').style.display = 'flex';
-    document.getElementById('product_id').value = productId;
+    document.getElementById('product_ids').value = productId;
     console.log("Product_id: " + productId);
 }
 
@@ -150,7 +150,7 @@ function closemyReviewProduct(event) {
 function reviewProduct() {
     event.preventDefault(); // Prevent default form submission
 
-    let formData = new FormData(document.getElementById("reportform"));
+    let formData = new FormData(document.getElementById("reviewform"));
 
     fetch("backend/review.php", {
         method: "POST",

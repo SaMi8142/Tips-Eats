@@ -40,7 +40,7 @@ if (mysqli_num_rows($result) > 0) {
         echo '            </div>';
         echo '        </div>';
         echo '        <div class="post-container-body">';
-        echo '            <h5 style="order">' . htmlspecialchars($row['product_title']) . '</h5>';
+        echo '            <h5 class="product-title">' . htmlspecialchars($row['product_title']) . '</h5>';
         echo '            <pre>' . htmlspecialchars($row['product_content']) . '</pre>';
         echo '        </div>';
         
@@ -55,6 +55,7 @@ if (mysqli_num_rows($result) > 0) {
         if ($row['user_id'] == $logged_in_user_id) {
             echo '                    <button class="comment" onclick="openReviewProduct(' . htmlspecialchars($row['product_id']) . ')">Reviews</button>';
             echo '                    <span class="count" id="review-count">' . $review_count . '</span>';  // Display review count here
+            echo '                    <button class="report" onclick="openUpdateProduct(' . htmlspecialchars($row['product_id']) . ', \'' . addslashes($row['product_title']) . '\', \'' . addslashes($row['product_content']) . '\', ' . htmlspecialchars($row['price']) . ')">Update</button>';
             echo '                    <button class="report" onclick="deleteProduct(' . htmlspecialchars($row['product_id']) . ')">Delete</button>';
         } else {
             echo '                    <button class="order" onclick="orderProduct( ' . htmlspecialchars($row['user_id']) . ', ' . htmlspecialchars($row['product_id']) . ')">Add to Cart</button>';
@@ -75,8 +76,10 @@ mysqli_close($conn);
 
 // Function to calculate time elapsed
 function time_elapsed_string($datetime, $full = false) {
-    $now = new DateTime;
-    $ago = new DateTime($datetime);
+    date_default_timezone_set('Asia/Manila'); // Set timezone manually
+
+    $now = new DateTime('now', new DateTimeZone('Asia/Manila'));
+    $ago = new DateTime($datetime, new DateTimeZone('Asia/Manila'));
     $diff = $now->diff($ago);
 
     $diff->w = floor($diff->d / 7);
@@ -102,4 +105,5 @@ function time_elapsed_string($datetime, $full = false) {
     if (!$full) $string = array_slice($string, 0, 1);
     return $string ? implode(', ', $string) . ' ago' : 'just now';
 }
+
 ?>

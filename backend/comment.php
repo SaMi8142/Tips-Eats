@@ -28,11 +28,10 @@ try {
         $first_name = $conn->real_escape_string($_POST['first_name']);
         $last_name = $conn->real_escape_string($_POST['last_name']);
         $username = $conn->real_escape_string($_POST['username']);
-        $created_at = date("Y-m-d H:i:s");
 
         // Insert the comment into the database
         $sql = "INSERT INTO Comments (post_id, user_id, comment_content, profile_pic, first_name, last_name, username, created_at)
-                VALUES ('$post_id', '$user_id', '$comment_content', '$profile_pic', '$first_name', '$last_name', '$username', '$created_at')";
+                VALUES ('$post_id', '$user_id', '$comment_content', '$profile_pic', '$first_name', '$last_name', '$username', NOW())";
 
         if ($conn->query($sql) === TRUE) {
             $response['success'] = true;
