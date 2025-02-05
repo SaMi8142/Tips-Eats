@@ -10,7 +10,7 @@ $my_id = $_SESSION['user_id'];
 $search_query = isset($_GET['query']) ? '%' . $_GET['query'] . '%' : '';
 
 // Fetch users whose username, first name, or last name matches the search query, excluding the logged-in user
-$sql_users = "SELECT user_id, first_name, last_name, username, profile_pic 
+$sql_users = "SELECT user_id, first_name, last_name, username, profile_pic, city, barangay 
               FROM Users 
               WHERE (username LIKE ? OR first_name LIKE ? OR last_name LIKE ?) 
               AND user_id != ?";
@@ -26,6 +26,8 @@ if ($result_users->num_rows > 0) {
         $last_name = htmlspecialchars($row_user['last_name']);
         $username = htmlspecialchars($row_user['username']);
         $profile_pic = htmlspecialchars($row_user['profile_pic']);
+        $city = htmlspecialchars($row_user['city']);
+        $barangay = htmlspecialchars($row_user['barangay']);
 
         // Check if the logged-in user is already following this user
         $follow_check_sql = "SELECT 1 FROM Follows WHERE user_id = ? AND follower_id = ?";
@@ -53,7 +55,7 @@ if ($result_users->num_rows > 0) {
         echo '            </div>';
         echo '        </div>';
         echo '        <div class="following-card-body">';
-        echo '            <p>Traveling the world one bite at a time. Discovering and sharing the best local eats and hidden gems. 🌍🍴 #FoodieAdventures</p>';
+        echo '                <p> Hello there 👋!!! I am from ' . $barangay . ', ' . $city . ', eager to know our local cuisines and delicacies!!! It would be great to follow each other!</p>';
         echo '        </div>';
         echo '    </div>';
         echo '</div>';

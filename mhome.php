@@ -92,6 +92,17 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
+        <h3 class="nav-logo">T&<span style="color: #994700;">Es</span></h3>
+        <button class="nav-button" onclick="nav_logout()">···</button>
+            <div class="navdown-content" id="navdown-content"> 
+                <a href="home.php">Home</a>
+                <a href="following.php">Following</a>
+                <a href="marketplace.php">MarketPlace</a>
+                <a href="orders.php">My Orders</a>
+                <a href="morders.php">Product Orders</a>
+                <a href="mhome.php">My Posts</a>
+                <a href="index.php">Log Out</a>
+            </div>
             <a href="home.php" class="headtitle-newsfeed">
                 <p>News Feed</p>
             </a>
@@ -175,6 +186,23 @@ if (isset($_SESSION['user_id'])) {
                     <pre>Hey foodies! 🌟 I just whipped up the fluffiest pancakes ever, and I couldn't wait to share the recipe with you all! Perfect for a cozy breakfast or brunch. Here's how you can make them too:</pre>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Post Modal -->
+<div id="update-post-modal" class="add-product-modal" onclick="closeUpdatePost(event)">
+    <div class="update-post-body updatemodal" onclick="event.stopPropagation();">
+        <div>
+            <h2>Post <span style="color:#994700;">Update</span></h2> 
+            <form id="updateform">
+                <div class="productform">
+                    <input type="hidden" id="update_post_id" name="update_post_id" value="">
+                    <textarea class="marketplace-search-box" rows="2" placeholder="Contents" id="update_content" name="update_content" value="" required></textarea>
+                    <button class="add-product-button" onclick="updatemPost()" >Update Post</button>
+                </div>
+            </form>
+            
         </div>
     </div>
 </div>

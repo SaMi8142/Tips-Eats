@@ -9,7 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $first_name = $conn->real_escape_string($_POST['first_name']);
     $last_name = $conn->real_escape_string($_POST['last_name']);
     $username = $conn->real_escape_string($_POST['username']);
-    $date = date("Y-m-d H:i:s");
 
     // Handle file upload
     if (isset($_FILES['post_pic']) && $_FILES['post_pic']['error'] == 0) {
@@ -32,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert data into database
     $sql = "INSERT INTO Posts (user_id, post_pic, post_content, profile_pic, first_name, last_name, username, date)
-            VALUES ('$user_id', '$postPic', '$post_content', '$profile_pic', '$first_name', '$last_name', '$username', '$date')";
+            VALUES ('$user_id', '$postPic', '$post_content', '$profile_pic', '$first_name', '$last_name', '$username', NOW())";
 
     if ($conn->query($sql) === TRUE) {
         // Redirect to home.php

@@ -244,7 +244,6 @@ function closeReportProduct(event) {
 }
 
 
-
 function reportProduct() {
     let form = document.getElementById("reportform");
     let formData = new FormData(form);
@@ -263,5 +262,50 @@ function reportProduct() {
     .catch(error => console.error("Error:", error));
 }
 
+// Update modal button
 
+function openUpdateProduct(product_id, product_title, product_content, product_price) {
+    document.getElementById('update-product-modal').style.display = 'flex';
+    
+    // Ensure all elements exist before assigning values
+    document.getElementById('update_product_id').value = product_id;
+    document.getElementById('update_title').value = product_title;
+    document.getElementById('update_content').value = product_content;
+    document.getElementById('update_price').value = product_price;
+    
+    console.log(product_id, product_title, product_content, product_price);
+}
+
+function closeUpdateProduct(event){
+    if (event && event.target.classList.contains('updatemodal')) {
+        return;  
+    }
+
+    const addProductModal = document.getElementById('update-product-modal');
+    if (addProductModal) {
+        addProductModal.style.display = 'none';
+    } else {
+        console.error("Add product modal not found.");
+    }
+    console.log("update product modal closed.");
+    // Fetch and display products when the page loads
+}
+
+function updateProduct(){
+    let form = document.getElementById("updateform");
+    let formData = new FormData(form);
+
+    fetch("backend/updateproduct.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success or error message
+        if (data.success) {
+            fetchProducts();
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
 

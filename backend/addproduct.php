@@ -7,7 +7,6 @@ $product_title = mysqli_real_escape_string($conn, $_POST['product_title']);
 $product_content = mysqli_real_escape_string($conn, $_POST['product_content']);
 $product_price = mysqli_real_escape_string($conn, $_POST['product_price']);
 $product_pic = $_FILES['product_pic'];
-$date = date("Y-m-d H:i:s");
 
 // Directory where the image will be saved
 $target_dir = "productpic/";
@@ -38,7 +37,7 @@ if (!move_uploaded_file($product_pic["tmp_name"], $target_file)) {
 }
 
 // Insert product into database
-$sql = "INSERT INTO Products (user_id, product_title, product_content, product_pic, price, date) VALUES ('$user_id', '$product_title', '$product_content', '$target_file', '$product_price', '$date')";
+$sql = "INSERT INTO Products (user_id, product_title, product_content, product_pic, price, date) VALUES ('$user_id', '$product_title', '$product_content', '$target_file', '$product_price', NOW())";
 if (mysqli_query($conn, $sql)) {
     header("Location: ../marketplace.php");
 } else {

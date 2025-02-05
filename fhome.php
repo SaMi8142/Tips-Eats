@@ -92,6 +92,17 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
+        <h3 class="nav-logo">T&<span style="color: #994700;">Es</span></h3>
+        <button class="nav-button" onclick="nav_logout()">···</button>
+            <div class="navdown-content" id="navdown-content"> 
+                <a href="home.php">Home</a>
+                <a href="following.php">Following</a>
+                <a href="marketplace.php">MarketPlace</a>
+                <a href="orders.php">My Orders</a>
+                <a href="morders.php">Product Orders</a>
+                <a href="mhome.php">My Posts</a>
+                <a href="index.php">Log Out</a>
+            </div>
             <a href="home.php" class="headtitle-newsfeed">
                 <p>News Feed</p>
             </a>
@@ -200,7 +211,7 @@ if (isset($_SESSION['user_id'])) {
                         <option value="misleading_information">Misleading Information</option>
                         <option value="poser">poser</option>
                     </select>
-                    <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." required>
+                    <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." maxlength="25" required>
                     <button class="add-product-button" onclick="reportfollowingPost()" >Report Post</button>
                 </div>
             </form>

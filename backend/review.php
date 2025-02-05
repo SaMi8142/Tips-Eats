@@ -20,7 +20,7 @@ $profile_pic = $_SESSION["profile_pic"] ?? '';
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $product_id = $_POST["product_id"] ?? '';
+    $product_id = $_POST["product_ids"] ?? '';
     $review_content = $_POST["review_content"] ?? '';
     $rating = $_POST["rating"] ?? '';
 

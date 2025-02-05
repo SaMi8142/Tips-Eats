@@ -92,16 +92,25 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
-            <a href="orders.php" class="headtitle-order">
+        <h3 class="nav-logo">T&<span style="color: #994700;">Es</span></h3>
+        <button class="nav-button" onclick="nav_logout()">···</button>
+            <div class="navdown-content" id="navdown-content"> 
+                <a href="home.php">Home</a>
+                <a href="following.php">Following</a>
+                <a href="marketplace.php">MarketPlace</a>
+                <a href="orders.php">My Orders</a>
+                <a href="morders.php">Product Orders</a>
+                <a href="mhome.php">My Posts</a>
+                <a href="index.php">Log Out</a>
+            </div>
+            <a href="morders.php" class="headtitle-order">
                 <p>Product Order Details</p>
             </a>
         </div>
         <div class="order-section">
         <div>
             <form class="comment-form" id="followingForm">
-                <div class="post-card">
                 <input class="following-search-box" placeholder="Finding your orders???" id="search_morder" name="search_morder" />
-                </div>
             </form>
         </div>
             <!-- sample Orders here -->

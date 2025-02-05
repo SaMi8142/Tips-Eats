@@ -105,3 +105,22 @@ function closemComment(event) {
     console.log("Modal closed.");
     fetchmPosts();
 }
+
+
+function updatemPost(){
+    let form = document.getElementById("updateform");
+    let formData = new FormData(form);
+
+    fetch("backend/updatepost.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success or error message
+        if (data.success) {
+            fetchmPosts();
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}

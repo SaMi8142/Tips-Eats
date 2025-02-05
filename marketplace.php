@@ -93,7 +93,18 @@ if (isset($_SESSION['user_id'])) {
     <!-- Middle section here! -->
     <div class="middle-section">
         <div class="header headtitle">
-            <a href="home.php" class="headtitle-order">
+        <h3 class="nav-logo">T&<span style="color: #994700;">Es</span></h3>
+        <button class="nav-button" onclick="nav_logout()">···</button>
+            <div class="navdown-content" id="navdown-content"> 
+                <a href="home.php">Home</a>
+                <a href="following.php">Following</a>
+                <a href="marketplace.php">MarketPlace</a>
+                <a href="orders.php">My Orders</a>
+                <a href="morders.php">Product Orders</a>
+                <a href="mhome.php">My Posts</a>
+                <a href="index.php">Log Out</a>
+            </div>
+            <a href="marketplace.php" class="headtitle-order">
                 <p>Products</p>
             </a>
         </div>
@@ -196,8 +207,27 @@ if (isset($_SESSION['user_id'])) {
                         <option value="misleading_information">Misleading Information</option>
                         <option value="poser">poser</option>
                     </select>
-                    <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." required>
+                    <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." maxlength="25" required>
                     <button class="add-product-button" onclick="reportProduct()" >Report Product</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Update Product Modal -->
+<div id="update-product-modal" class="add-product-modal" onclick="closeUpdateProduct(event)">
+    <div class="update-product-body updatemodal" onclick="event.stopPropagation();">
+        <div>
+            <h2>Product <span style="color:#994700;">Update</span></h2> 
+            <form id="updateform">
+                <div class="productform">
+                    <input type="hidden" id="update_product_id" name="update_product_id" value="">
+                    <input type="text" class="marketplace-input-box" placeholder="Title" id="update_title" name="update_title" value="" required/>
+                    <textarea class="marketplace-search-box" rows="2" placeholder="Contents" id="update_content" name="update_content" value="" required></textarea>
+                    <input type="number" min="1" class="marketplace-input-box" id="update_price" name="update_price" placeholder="Price" value="" required>
+                    <button class="add-product-button" onclick="updateProduct()" >Update Product</button>
                 </div>
             </form>
             

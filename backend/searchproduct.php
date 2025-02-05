@@ -40,8 +40,8 @@ $result = mysqli_query($conn, $sql);
             echo '        </div>';
             echo '    </div>';
             echo '    <div class="post-container-body">';
-            echo '        <h5 style="order">' . htmlspecialchars($row['product_title']) . '</h5>';
-            echo '        <p>' . htmlspecialchars($row['product_content']) . '</p>';
+            echo '        <h5 class="product-title">' . htmlspecialchars($row['product_title']) . '</h5>';
+            echo '        <pre>' . htmlspecialchars($row['product_content']) . '</pre>';
             echo '        <div class="post-container-img">';
             if (!empty($row['product_pic'])) {
                 echo '            <img src="backend/' . htmlspecialchars($row['product_pic']) . '" alt="product image">';
@@ -53,12 +53,13 @@ $result = mysqli_query($conn, $sql);
             if ($row['user_id'] == $logged_in_user_id) {
                 echo '                    <button class="comment" onclick="openReviewProduct(' . htmlspecialchars($row['product_id']) . ')">Reviews</button>';
                 echo '                    <span class="count" id="review-count">0</span>';
+                echo '                    <button class="report" onclick="openUpdateProduct(' . htmlspecialchars($row['product_id']) . ', \'' . addslashes($row['product_title']) . '\', \'' . addslashes($row['product_content']) . '\', ' . htmlspecialchars($row['price']) . ')">Update</button>';
                 echo '                    <button class="report" onclick="deleteProduct(' . htmlspecialchars($row['product_id']) . ')">Delete</button>';
             } else {
                 echo '                    <button class="order" onclick="orderProduct(' . htmlspecialchars($row['user_id']) . ', ' . htmlspecialchars($row['product_id']) . ')">Add to Cart</button>';
                 echo '                    <button class="comment" onclick="openReviewProduct(' . htmlspecialchars($row['product_id']) . ')">Reviews</button>';
                 echo '                    <span class="count" id="review-count">0</span>';
-                echo '                    <button class="report">Report</button>';
+                echo '                    <button class="report" onclick="openReportProduct(' . htmlspecialchars($row['user_id']) . ', ' . htmlspecialchars($row['product_id']) . ', \'' . htmlspecialchars($_SESSION['username']) . '\', \'' . htmlspecialchars($row['username']) . '\')">Report</button>';
             }
             echo '                </div>';
             echo '            </div>';
@@ -75,8 +76,10 @@ $result = mysqli_query($conn, $sql);
 
 // Function to calculate time elapsed
 function time_elapsed_string($datetime, $full = false) {
-    $now = new DateTime;
-    $ago = new DateTime($datetime);
+    date_default_timezone_set('Asia/Manila'); // Set timezone manually
+
+    $now = new DateTime('now', new DateTimeZone('Asia/Manila'));
+    $ago = new DateTime($datetime, new DateTimeZone('Asia/Manila'));
     $diff = $now->diff($ago);
 
     $diff->w = floor($diff->d / 7);

@@ -58,6 +58,25 @@
       text-align: center;
   }
 
+     /* update product modal */ 
+
+     .update-product-body {  
+      background-color: white;  
+      padding: 10px;  
+      border-radius: 10px;  
+      width: 40%;  
+      height: auto;  
+      text-align: center;  
+    }  
+  
+    .update-product-body h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.5vw;
+        color: #222222;
+        margin-bottom: 1vw;
+        text-align: center;
+    }
+
     /* add product modal */ 
 
   .add-product-modal {  
@@ -79,9 +98,21 @@
           padding: 10px;  
           border-radius: 10px;  
           width: 40%;  
-          height: 70%;  
-          text-align: center;  
+          height: 60%;  
+          text-align: center; 
+          overflow: auto;
+          
         }  
+
+        .add-product-body::-webkit-scrollbar {
+          width: 0;
+          background: transparent;
+        }
+        
+        .add-product-body {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
 
         .add-product-body h2 {
             font-family: "Poppins", sans-serif;
@@ -93,6 +124,14 @@
 
         /* add product form */
 
+        .product-title {
+          font-family: "Poppins", sans-serif;
+          font-size: 1.5vw;
+          color: #222222;
+          margin: 0 0 1vw 0;
+          text-align: left;
+        }
+
 .productform {
             background-color: #ffffff;
             display: column;
@@ -102,7 +141,7 @@
 
     .marketplace-input-box{
         font-family: "Poppins", sans-serif;
-        margin-bottom: 5vh;
+        margin-bottom: 2vh;
         padding-top: 0.6vw;
         padding-bottom: 0.6vw;
         font-size: 1.2vw;
@@ -113,6 +152,8 @@
         border-bottom: #ffd1a9 1px solid;
         transition: opacity 0.5s ease, height 0.5s ease;
       }
+
+
       
       .marketplace-input-box:focus {
         outline: none;
@@ -152,4 +193,172 @@
         float: left; /* Align to the left */
     }
 
-      
+    
+    @media (max-width: 480px) {
+
+      /* market search bar */
+
+      .marketplace-search-box{
+      font-family: "Poppins", sans-serif;
+      padding-top: 0.6vw;
+      padding-bottom: 0.6vw;
+      font-size: 4vw;
+      width: 100%;
+      border-top: transparent;
+      border-left: transparent;
+      border-right: transparent;
+      border-bottom: #ffd1a9 1px solid;
+      transition: opacity 0.5s ease, height 0.5s ease;
+      resize: vertical; 
+    }
+
+    .marketplace-search-box:focus {
+      outline: none;
+    }
+
+      .product-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 3vw;
+        color: #222222;
+        margin: 0 0 1vw 0;
+        text-align: left;
+      }
+
+         /* add product button */
+
+         .add-product-body {  
+          background-color: white;  
+          border-radius: 10px;  
+          padding: auto;
+          width: 80%;  
+          height: 37%;  
+          text-align: center;  
+          align-items: center;
+          justify-content: center;
+          overflow: auto;
+        }  
+
+        .add-product-body::-webkit-scrollbar {
+          width: 0;
+          background: transparent;
+        }
+        
+        .add-product-body {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        .add-product-body h2 {
+          margin: 0 0 1vh 0;
+          font-family: "Poppins", sans-serif;
+          font-size: 5vw;
+          color: #222222;
+          text-align: center;
+        }
+
+        /* add product form */
+
+.productform {
+            background-color: #ffffff;
+            display: column;
+            border-radius: 10px;  
+    }
+
+    .marketplace-input-box{
+        font-family: "Poppins", sans-serif;
+        padding-top: 0.6vw;
+        padding-bottom: 0.6vw;
+        font-size: 4vw;
+        width: 100%;
+        border-top: transparent;
+        border-left: transparent;
+        border-right: transparent;
+        border-bottom: #ffd1a9 1px solid;
+        transition: opacity 0.5s ease, height 0.5s ease;
+      }
+
+  .add-product-button{
+    width: 100%;
+    margin: 1vh 0;  
+    float: center;
+    font-size: 4vw;
+    color: #222222;
+    height: 4vh;
+    font-family: "Poppins", sans-serif;
+    background-color: #ffd1a9;
+    border-color: transparent;
+    transition: background-color 1s ease; 
+  }
+
+  .add-product-button:hover{
+    background-color: #994700;
+    color: #ffffff;
+  }
+
+      /* Style the custom file input label */
+      .custom-file-label {
+        margin-bottom: 3vh;
+        display: inline-block;
+        padding: 0.6vw 1.2vw;
+        font-family: "Poppins", sans-serif;
+        font-size: 4vw;
+        color: #222222;
+        background-color: #ffd1a9;
+        border: 1px solid #ffd1a9;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        float: left; /* Align to the left */
+    }
+    
+    .custom-file-label:hover {
+        background-color: #ffb07c;
+    }
+    
+    /* Style the file name display */
+    .file-name {
+        display: inline-block;
+        padding-top: 1.5vh;
+        font-family: "Poppins", sans-serif;
+        font-size: 3vw;
+        color: #222222;
+        float: left; /* Align to the left */
+    }
+
+   /* report product modal */ 
+
+   .report-product-body {  
+    background-color: white;  
+    padding: 10px;  
+    border-radius: 10px;  
+    width: 80%;  
+    height: auto;  
+    text-align: center;  
+  }  
+
+  .report-product-body h2 {
+      margin: 0 0 1vh 0;
+      font-family: "Poppins", sans-serif;
+      font-size: 5vw;
+      color: #222222;
+      text-align: center;
+  }
+
+     /* update product modal */ 
+
+     .update-product-body {  
+      background-color: white;  
+      padding: 10px;  
+      border-radius: 10px;  
+      width: 80%;  
+      height: auto;  
+      text-align: center;  
+    }  
+  
+    .update-product-body h2 {
+        margin: 0 0 1vh 0;
+        font-family: "Poppins", sans-serif;
+        font-size: 5vw;
+        color: #222222;
+        text-align: center;
+    }
+    }

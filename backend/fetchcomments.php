@@ -81,9 +81,12 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
 $conn->close();
 
+// Function to calculate time elapsed
 function time_elapsed_string($datetime, $full = false) {
-    $now = new DateTime;
-    $ago = new DateTime($datetime);
+    date_default_timezone_set('Asia/Manila'); // Set timezone manually
+
+    $now = new DateTime('now', new DateTimeZone('Asia/Manila'));
+    $ago = new DateTime($datetime, new DateTimeZone('Asia/Manila'));
     $diff = $now->diff($ago);
 
     $diff->w = floor($diff->d / 7);

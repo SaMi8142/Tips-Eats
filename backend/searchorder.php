@@ -13,7 +13,13 @@ if (isset($_GET['query'])) {
     $query = $conn->real_escape_string($_GET['query']);
 
 // Fetch orders from the database with conditional ordering by buyer_status and seller_status
-$sql = "SELECT o.order_id, o.product_id, o.order_title, o.order_price, o.order_quantity, o.order_finalprice, o.order_status, o.buyer_city, o.buyer_number, o.seller_city, o.ordered_at, o.buyer_status, o.seller_status, p.product_pic, p.product_title, p.price, u.first_name, u.last_name, u.username AS seller_username, u.profile_pic, u.region AS seller_region, u.province AS seller_province, u.city AS seller_city, u.barangay AS seller_barangay, u.phone AS seller_phone,
+$sql = "SELECT o.order_id, o.seller_id, o.product_id, o.order_title, o.order_price, o.order_quantity, o.order_finalprice, 
+               o.order_status, o.buyer_city, o.buyer_number, o.seller_city, o.ordered_at, 
+               o.buyer_status, o.seller_status,
+               p.product_pic, p.product_title, p.price, 
+               u.first_name, u.last_name, u.username AS seller_username, u.profile_pic, 
+               u.region AS seller_region, u.province AS seller_province, u.city AS seller_city, 
+               u.barangay AS seller_barangay, u.phone AS seller_phone, u.street AS seller_street, -- Added seller barangay and street
                CASE
                     WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'approved' THEN 1  
                     WHEN o.buyer_status = 'confirmed' AND o.seller_status = 'pending' THEN 2 
@@ -37,6 +43,7 @@ $sql = "SELECT o.order_id, o.product_id, o.order_title, o.order_price, o.order_q
              OR o.seller_status LIKE '%$query%' 
              OR o.buyer_status LIKE '%$query%')
         ORDER BY order_priority, o.ordered_at DESC";
+
 $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -53,7 +60,7 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
@@ -64,12 +71,14 @@ $result = mysqli_query($conn, $sql);
                 echo '            <input type="hidden" name="order_status" value="pending">';
                 echo '            <input type="hidden" name="seller_status" value="pending">';
                 echo '            <input type="hidden" name="buyer_status" value="confirmed">';
+                echo '    <div class="order-button-bar">';
                 echo '            <div class="counter">';
                 echo '                <input type="number" name="order_quantity" value="' . htmlspecialchars($row['order_quantity']) . '" min="1" step="1">';
                 echo '            </div>';
                 echo '            <button class="order-button" type="submit">Confirm Order</button>';
                 echo '        </form>';
                 echo '        <button class="order-delete-button" onclick="deleteOrder(' . htmlspecialchars($row['order_id']) . ')">Delete Order</button>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';
@@ -86,13 +95,15 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
                 echo '        <div class="order-form">';
+                echo '    <div class="order-button-bar">';
                 echo '        <p class="order-status">Under-Review</p>';
                 echo '        <button class="order-button" onclick="cancelOrder(' . htmlspecialchars($row['order_id']) . ')">Cancel Order</button>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';
@@ -109,13 +120,15 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
                 echo '        <div class="order-form">';
+                echo '    <div class="order-button-bar">';
                 echo '        <p class="order-status">'. htmlspecialchars($row['ordered_at']) . '</p>';
                 echo '        <p class="order-cancelled">Cancelled</p>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';
@@ -132,13 +145,15 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
                 echo '        <div class="order-form">';
+                echo '    <div class="order-button-bar">';
                 echo '        <p class="order-status">'. htmlspecialchars($row['ordered_at']) . '</p>';
                 echo '        <p class="order-cancelled">Rejected</p>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';
@@ -155,13 +170,15 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
                 echo '        <div class="order-form">';
+                echo '    <div class="order-button-bar">';
                 echo '        <p class="order-status">Pending</p>';
                 echo '        <p class="order-cancelled">Approved</p>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';
@@ -178,13 +195,15 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
                 echo '        <div class="order-form">';
+                echo '    <div class="order-button-bar">';
                 echo '        <p class="order-status">Preparing</p>';
                 echo '        <p class="order-cancelled">Approved</p>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';
@@ -201,13 +220,15 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
                 echo '        <div class="order-form">';
+                echo '    <div class="order-button-bar">';
                 echo '        <p class="order-status">Delivering</p>';
                 echo '        <button class="order-button" onclick="orderDelivered(' . htmlspecialchars($row['order_id']) .')">Order Delivered</button>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';
@@ -223,13 +244,16 @@ $result = mysqli_query($conn, $sql);
                 echo '                <h3>' . htmlspecialchars($row['order_title']) . '</h3>';
                 echo '                <p>Seller: @' . htmlspecialchars($row['seller_username']) . '</p>';
                 echo '                <p>Contact: ' . htmlspecialchars($row['seller_phone']) . '</p>';
-                echo '                <p>Location: ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
+                echo '                <p>Location: ' . htmlspecialchars($row['seller_street']) . ' ' . htmlspecialchars($row['seller_barangay']) . ', ' . htmlspecialchars($row['seller_city']) . ', ' . htmlspecialchars($row['seller_province']) . ', ' . htmlspecialchars($row['seller_region']) . '</p>';
                 echo '                <h4 class="product-price">P ' . htmlspecialchars($row['order_finalprice']) . '</h4>';
                 echo '            </div>';
                 echo '        </div>';
                 echo '        <div class="order-form">';
+                echo '    <div class="order-button-bar">';
                 echo '        <p class="order-status">Delivered</p>';
                 echo '        <button class="order-button" onclick="openmyReviewProduct(' . htmlspecialchars($row['product_id']) . ')">Review</button>';
+                echo '        <button class="order-delete-button" onclick="openReportProduct(' . htmlspecialchars($row['seller_id']) . ', ' . htmlspecialchars($row['product_id']) . ', \'' . htmlspecialchars($_SESSION['username']) . '\', \'' . htmlspecialchars($row['seller_username']) . '\')">Report</button>';
+                echo '    </div>';
                 echo '    </div>';
                 echo '    </div>';
                 echo '</div>';

@@ -87,6 +87,7 @@ if ($result->num_rows > 0) {
             echo '    <span class="count" id="like-count-' . $post_id . '">' . $like_count . '</span>';
             echo '                   <button class="comment" onclick="openComment(' . htmlspecialchars($row['post_id']) . ')">Comment</button>';
             echo '    <span class="count" id="comment-count-' . $post_id . '">' . $comment_count . '</span>';
+            echo '                    <button class="report" onclick="openUpdatePost(' . htmlspecialchars($row['post_id']) . ', \'' . addslashes($row['post_content']) . '\')">Update</button>';
             echo '                    <button class="follow" onclick="buttondeletepost(' . htmlspecialchars($row['post_id']) . ')">Delete</button>';
             echo '                </div>';
             echo '            </div>';
@@ -116,9 +117,12 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 
+// Function to calculate time elapsed
 function time_elapsed_string($datetime, $full = false) {
-    $now = new DateTime;
-    $ago = new DateTime($datetime);
+    date_default_timezone_set('Asia/Manila'); // Set timezone manually
+
+    $now = new DateTime('now', new DateTimeZone('Asia/Manila'));
+    $ago = new DateTime($datetime, new DateTimeZone('Asia/Manila'));
     $diff = $now->diff($ago);
 
     $diff->w = floor($diff->d / 7);
