@@ -75,6 +75,7 @@ if (isset($_SESSION['user_id'])) {
                     <div class="logoutbtn">
                         <div class="popup_logout" id="popuplogout"> 
                             <a href="index.php">Log Out</a> 
+                            <a href="home.php">Home</a>
                         </div>
                         <img src="img/ellipsis.png" alt="" onclick="popup_logout()" style="cursor: pointer;">
                     </div>

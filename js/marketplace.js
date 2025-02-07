@@ -244,6 +244,7 @@ function closeReportProduct(event) {
 }
 
 
+<<<<<<< Updated upstream
 function reportProduct(event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
@@ -253,6 +254,9 @@ function reportProduct(event) {
         return;
     }
 
+=======
+function reportProduct() {
+>>>>>>> Stashed changes
     let form = document.getElementById("reportform");
     let formData = new FormData(form);
 

@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert report into PostReports table, including report_description
     $stmt = $conn->prepare("
-        INSERT INTO PostReports (post_id, reported_id, reporter_username, reported_username, report_type, report_issue, report_description) 
+        INSERT INTO postreports (post_id, reported_id, reporter_username, reported_username, report_type, report_issue, report_description) 
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
     $stmt->bind_param("iisssss", $post_id, $reported_id, $reporter_username, $reported_username, $report_type, $report_issue, $report_description);

@@ -17,11 +17,17 @@ if (isset($data["action"])) {
     $action = $data["action"];
 
     // DELETE User
-    if ($action === "approve" && isset($data["post_id"])) {
+    if ($action === "approve" && isset($data["post_id"]) && isset($data["report_type"])) {
         $id = intval($data["post_id"]);
-        $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id";
-        $sql2 = "UPDATE posts SET status = 'dismissed' WHERE post_id = $id";
-
+        $report_type = $data["report_type"];
+        if($report_type == 'Post'){
+            $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id and report_type = '$report_type'";
+            $sql2 = "UPDATE posts SET status = 'dismissed' WHERE post_id = $id and report_type = '$report_type'";
+        } else {
+            $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id and report_type = '$report_type'";
+            $sql2 = "UPDATE products SET status = 'dismissed' WHERE product_id = $id and report_type = '$report_type'";
+        }
+        
         if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
             echo "Report Approved!";
         } else {
@@ -31,16 +37,23 @@ if (isset($data["action"])) {
     }
 
     // UPDATE User
-    elseif ($action === "disapprove" && isset($data["post_id"])) {
+    if ($action === "disapprove" && isset($data["post_id"]) && isset($data["report_type"])) {
         $id = intval($data["post_id"]);
-        $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id";
-        $sql2 = "UPDATE posts SET status = 'active' WHERE post_id = $id";
-
-        if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
-            echo "Report disapproved!";
+        $report_type = $data["report_type"];
+        if($report_type == 'Post'){
+            $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id and report_type = '$report_type'";
+            $sql2 = "UPDATE posts SET status = 'dismissed' WHERE post_id = $id and report_type = '$report_type'";
         } else {
-            echo "Error disapproving report: " . mysqli_error($conn);
+            $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id and report_type = '$report_type'";
+            $sql2 = "UPDATE products SET status = 'dismissed' WHERE product_id = $id and report_type = '$report_type'";
         }
+        
+        if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
+            echo "Report Approved!";
+        } else {
+            echo "Error approving report: " . mysqli_error($conn);
+        }
+
     }
 
     else {

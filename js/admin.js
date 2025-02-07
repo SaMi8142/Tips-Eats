@@ -11,12 +11,12 @@ function popup_logout() {
     }
 }
 
-function approveReport(post_id) {
+function approveReport(post_id, report_type) {
     if (confirm("Are you sure you want to approve this report?")) {
         fetch("reportApproval.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ action: "approve", post_id: post_id }) // Send ID
+            body: JSON.stringify({ action: "approve", post_id: post_id, report_type: report_type }) // Send ID
         })
         .then(response => {
             window.location.reload();
@@ -26,12 +26,12 @@ function approveReport(post_id) {
     }
 }
 
-function disapproveReport(post_id) {
+function disapproveReport(post_id, report_type) {
     if(confirm("Are you sure you want to disapprove this report?")){
         fetch("reportApproval.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ action: "disapprove", post_id: post_id })
+            body: JSON.stringify({ action: "disapprove", post_id: post_id, report_type: report_type })
         })
         .then(response => {
             window.location.reload();

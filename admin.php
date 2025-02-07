@@ -98,7 +98,8 @@ if (mysqli_num_rows($result) > 0) {
                     </div>
                     <div class="logoutbtn">
                         <div class="popup_logout" id="popuplogout"> 
-                            <a href="index.php">Log Out</a> 
+                            <a href="index.php">Log Out</a>
+                            <a href="home.php">Home</a> 
                         </div>
                         <img src="img/ellipsis.png" alt="" onclick="popup_logout()" style="cursor: pointer;">
                     </div>
@@ -119,7 +120,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="table">
                 <table>
                     <thead>
-                        <td>Post ID</td>
+                        <td>Post/Product ID</td>
                         <td>Reported ID</td>
                         <td>Reported Username</td>
                         <td>Reporter Username</td>
@@ -146,10 +147,10 @@ if (mysqli_num_rows($result) > 0) {
                                 <td class="reportDesc"><?php echo $row["report_description"]?></td>
                                 <td>
                                     <div class="action-column">
-                                        <button id="check-btn" onclick="approveReport(<?php echo $row['post_id']; ?>)">
+                                        <button id="check-btn" onclick="approveReport(<?php echo $row['post_id']; ?>, '<?php echo $row['report_type']; ?>')">
                                             <img src="img/circle-check.png" alt="">
                                         </button>
-                                        <button id="x-btn" onclick="disapproveReport(<?php echo $row['post_id']; ?>)">
+                                        <button id="x-btn" onclick="disapproveReport(<?php echo $row['post_id']; ?>, '<?php echo $row['report_type']; ?>')">
                                             <img src="img/circle-x.png" alt="">
                                         </button>
                                     </div>
