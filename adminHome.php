@@ -42,6 +42,12 @@ if (isset($_SESSION['user_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
     <div class="main-container">
         <div class="side-navbar">
             <div class="top-sidenavbar">
@@ -121,5 +127,6 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/admin.js"></script>
+
 </body>
 </html>
