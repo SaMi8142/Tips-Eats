@@ -246,10 +246,11 @@ function closeReportProduct(event) {
 
 
 function reportProduct() {
+
     let form = document.getElementById("reportform");
     let formData = new FormData(form);
 
-    fetch("backend/reportpost.php", {
+    fetch("backend/reportproduct.php", {
         method: "POST",
         body: formData
     })

@@ -1,42 +1,58 @@
 <?php
-include 'connection.php'; // Database connection
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include 'connection.php'; // Ensure this connects properly
 
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();  // Start the session if it's not started
+    session_start();
 }
 
+header('Content-Type: application/json'); // Ensure the response is JSON format
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate connection
+    if (!$conn) {
+        die(json_encode(["success" => false, "message" => "Database connection failed"]));
+    }
+
     // Get values from form
     $reported_id = $_POST['reported_user_id'] ?? 0;
-    $post_id = $_POST['product_id'] ?? 0;  // This should probably be 'post_id' rather than 'product_id' for consistency
+    $post_id = $_POST['post_id'] ?? ($_POST['product_id'] ?? 0);
     $reporter_username = $_POST['reporter_username'] ?? '';
     $reported_username = $_POST['reported_username'] ?? '';
     $report_type = $_POST['report_type'] ?? '';
     $report_issue = $_POST['report_issue'] ?? '';
-    $report_description = $_POST['report_description'] ?? '';  // Get the report description
+    $report_description = $_POST['report_description'] ?? '';
 
     // Validate required fields
     if (!$reported_id || !$post_id || empty($report_type) || empty($report_issue) || empty($report_description)) {
-        die(json_encode(["success" => false, "message" => "Missing required fields"]));
+        echo json_encode(["success" => false, "message" => "Missing required fields"]);
+        exit();
     }
 
-    // Insert report into PostReports table, including report_description
+    // Insert into PostReports table
     $stmt = $conn->prepare("
-        INSERT INTO postreports (post_id, reported_id, reporter_username, reported_username, report_type, report_issue, report_description) 
+        INSERT INTO PostReports (post_id, reported_id, reporter_username, reported_username, report_type, report_issue, report_description) 
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
-    $stmt->bind_param("iisssss", $post_id, $reported_id, $reporter_username, $reported_username, $report_type, $report_issue, $report_description);
-    $stmt->execute();
+    
+    if (!$stmt) {
+        echo json_encode(["success" => false, "message" => "SQL Prepare Error: " . $conn->error]);
+        exit();
+    }
 
-    if ($stmt->affected_rows > 0) {
-        // Update post or product status based on report type
+    $stmt->bind_param("iisssss", $post_id, $reported_id, $reporter_username, $reported_username, $report_type, $report_issue, $report_description);
+    
+    if ($stmt->execute()) {
+        // Update post/product status
         if ($report_type == "Post") {
             $updateStmt = $conn->prepare("UPDATE Posts SET status = 'reported' WHERE post_id = ?");
-            $updateStmt->bind_param("i", $post_id);
-            $updateStmt->execute();
-            $updateStmt->close();
         } else {
             $updateStmt = $conn->prepare("UPDATE Products SET status = 'reported' WHERE product_id = ?");
+        }
+        
+        if ($updateStmt) {
             $updateStmt->bind_param("i", $post_id);
             $updateStmt->execute();
             $updateStmt->close();
@@ -44,8 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo json_encode(["success" => true, "message" => "Reported successfully"]);
     } else {
-        echo json_encode(["success" => false, "message" => "Failed to report"]);
+        echo json_encode(["success" => false, "message" => "Failed to report", "error" => $stmt->error]);
     }
+
     $stmt->close();
 } else {
     echo json_encode(["success" => false, "message" => "Invalid request method"]);

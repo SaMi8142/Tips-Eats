@@ -2,42 +2,62 @@
 include 'connection.php'; // Database connection
 
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();  // Start the session if it's not started
+    session_start();
 }
 
+// Ensure the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get values from form
-    $reported_id = $_POST['reported_user_id'] ?? 0;
-    $product_id = $_POST['product_id'] ?? 0;
-    $reporter_username = $_POST['reporter_username'] ?? '';
-    $reported_username = $_POST['reported_username'] ?? '';
-    $report_type = $_POST['report_type'] ?? 'Product';
-    $report_issue = $_POST['report_issue'] ?? '';
-    $report_description = $_POST['report_description'] ?? '';  // Get the report description
-
-    // Validate required fields
-    if (!$reported_id || !$product_id || empty($report_type) || empty($report_issue) || empty($report_description)) {
-        die(json_encode(["success" => false, "message" => "Missing required fields"]));
+    // Ensure connection is working
+    if (!$conn) {
+        die("Database connection failed.");
     }
 
-    // Insert report into ProductReports table with report_description
+    // Retrieve form values
+    $reported_id = $_POST['reported_user_id'] ?? 0;
+    $post_id = $_POST['product_id'] ?? 0;
+    $reporter_username = $_POST['reporter_username'] ?? '';
+    $reported_username = $_POST['reported_username'] ?? '';
+    $report_type = $_POST['report_type'] ?? '';
+    $report_issue = $_POST['report_issue'] ?? '';
+    $report_description = $_POST['report_description'] ?? '';
+
+    // Validate required fields
+    if (!$reported_id || !$post_id || empty($report_type) || empty($report_issue) || empty($report_description)) {
+        die("<script>alert('Error: Missing required fields!'); window.history.back();</script>");
+    }
+
+    // Insert report into PostReports table
     $stmt = $conn->prepare("
-        INSERT INTO ProductReports (product_id, reported_id, reporter_username, reported_username, report_type, report_issue, report_description) 
+        INSERT INTO PostReports (post_id, reported_id, reporter_username, reported_username, report_type, report_issue, report_description) 
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
-    $stmt->bind_param("iisssss", $product_id, $reported_id, $reporter_username, $reported_username, $report_type, $report_issue, $report_description);
-    $stmt->execute();
+    
+    if (!$stmt) {
+        die("<script>alert('SQL Error: " . $conn->error . "'); window.history.back();</script>");
+    }
+
+    $stmt->bind_param("iisssss", $post_id, $reported_id, $reporter_username, $reported_username, $report_type, $report_issue, $report_description);
+    
+    if ($stmt->execute()) {
+        // Update post or product status based on report type
+        if ($report_type == "Post") {
+            $updateStmt = $conn->prepare("UPDATE products SET status = 'reported' WHERE post_id = ?");
+        } else {
+            $updateStmt = $conn->prepare("UPDATE Products SET status = 'reported' WHERE product_id = ?");
+        }
+        
+        if ($updateStmt) {
+            $updateStmt->bind_param("i", $post_id);
+            $updateStmt->execute();
+            $updateStmt->close();
+        }
+
+        echo "<script>alert('Report submitted successfully.'); window.location.href = '../marketplace.php';</script>";
+    
+    }
+
     $stmt->close();
-
-    // Update product status to 'reported'
-    $updateStmt = $conn->prepare("UPDATE Products SET status = 'reported' WHERE product_id = ?");
-    $updateStmt->bind_param("i", $product_id);
-    $updateStmt->execute();
-    $updateStmt->close();
-
-    echo json_encode(["success" => true, "message" => "Product reported successfully"]);
 } else {
-    echo json_encode(["success" => false, "message" => "Invalid request"]);
+    echo "<script>alert('Invalid request method.'); window.history.back();</script>";
 }
 ?>
-

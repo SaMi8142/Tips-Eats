@@ -184,7 +184,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="report-product-body reportmodal" onclick="event.stopPropagation();">
         <div>
             <h2>Product <span style="color:#994700;">Report</span></h2> 
-            <form id="reportform">
+            <form id="reportform" action="backend/reportproduct.php" method="POST">
                 <div class="productform">
                     <input type="hidden" id="reported_user_id" name="reported_user_id" value="">
                     <input type="hidden" id="product_id" name="product_id" value="">
@@ -200,7 +200,9 @@ if (isset($_SESSION['user_id'])) {
                         <option value="poser">poser</option>
                     </select>
                     <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." maxlength="25" required>
-                    <button class="add-product-button" onclick="reportProduct()">Report Product</button>
+
+                    <button class="add-product-button" type="submit" >Report Product</button>
+
                 </div>
             </form>
             
