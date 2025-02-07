@@ -20,6 +20,16 @@ const data = [{
 const layout = {title:"World Wide Wine Production"};
 
 Plotly.newPlot("myPlot", data, layout);
+
+
+window.addEventListener("unload", function () {
+    console.log("User has closed the tab.");
+    navigator.sendBeacon("/log_exit", JSON.stringify({ userId: 123 }));
+});
+
+
+
+
 </script>
 
 </body>
