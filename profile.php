@@ -40,6 +40,7 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href='css/main.css'>
     <link rel="stylesheet" href='css/comment.css'> 
     <link rel="stylesheet" href='css/marketplace.css'> 
@@ -83,9 +84,7 @@ if (isset($_SESSION['user_id'])) {
 
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content"> 
-                <a href="morders.php">Product Orders</a>
-                <a href="mhome.php">My Posts</a>
-                <a href="index.php">Log Out</a>
+            <?php include 'backend/checkdropdown.php'; ?>
             </div>
            
         </div>
@@ -97,19 +96,13 @@ if (isset($_SESSION['user_id'])) {
         <h3 class="nav-logo">T&<span style="color: #994700;">Es</span></h3>
         <button class="nav-button" onclick="nav_logout()">···</button>
             <div class="navdown-content" id="navdown-content"> 
-                <a href="home.php">Home</a>
-                <a href="following.php">Following</a>
-                <a href="marketplace.php">MarketPlace</a>
-                <a href="orders.php">My Orders</a>
-                <a href="morders.php">Product Orders</a>
-                <a href="mhome.php">My Posts</a>
-                <a href="index.php">Log Out</a>
+            <?php include 'backend/checknavdown.php'; ?>
             </div>
-            <a href="home.php" class="headtitle-order ">
+            <a href="mmarketplace.php" class="headtitle-order ">
                 <p>My Products</p>
             </a>
             <a href="profile.php" class="headtitle-middle underline">
-             <p>My Profile</p>
+             <p style="color: #994700;">My Profile</p>
             </a>
             <a href="mhome.php" class="headtitle-order">
              <p>My Posts</p>
@@ -141,36 +134,48 @@ if (isset($_SESSION['user_id'])) {
                                </div>
                         </div>
                         </div>
-        </div>       
+                        <!-- Plotly Chart -->
+                        <div id="myPlot" style="width:100%; max-width:700px"></div>
+                        
+
+            <script>
+            <?php include 'backend/sales.php'; ?>
+            </script>
+        </div>             
         </div>
 
-        <!-- Update Profile Modal -->
+<!-- Update Profile Modal -->
 <div id="report-post-modal" class="add-product-modal" onclick="closeUpdateProfile(event)">
-    <div class="add-product-body reportmodal" onclick="event.stopPropagation();">
-        <div>
+    <div class="add-product-body Profilemodal" onclick="event.stopPropagation();">
+        <div class="productform">
             <h2>Update <span style="color:#994700;">Profile</span></h2> 
-            <form id="reportform">
-                <div class="productform">
-                    <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
-                    <input type="text"  id="first_name" name="first_name" class="marketplace-input-box" placeholder="First Name" value="<?= $first_name ?>" required>
-                    <input type="text" id="middle_name" name="middle_name" class="marketplace-input-box" placeholder="Middle Name" value="<?= $middle_name ?>" required>
-                    <input type="text" id="last_name" name="last_name" class="marketplace-input-box" placeholder="Last Name" value="<?= $last_name ?>"required>
-                    <input type="text" id="suffix" name="suffix" class="marketplace-input-box" placeholder="suffix" >
-                    <input type="text" id="username" name="username" class="marketplace-input-box" placeholder="username" value="<?= $username ?>" required>
-                    <input type="date" id="birthday" name="birthday" class="marketplace-input-box" placeholder="birthday" value="<?php echo $birthday; ?>" required>
-                    <select id="gender" name="gender" class="marketplace-input-box" value="<?= $gender ?>" required>
+            <form id="profileform" action="backend/edit_profile.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" id="profile_user_id" name="user_id" value="<?= $user_id ?>">
+                <input type="text" id="profile_first_name" name="profile_first_name" class="marketplace-input-box" placeholder="First Name" value="<?= $first_name ?>" required>
+                <input type="text" id="profile_middle_name" name="profile_middle_name" class="marketplace-input-box" placeholder="Middle Name" value="<?= $middle_name ?>" required>
+                <input type="text" id="profile_last_name" name="profile_last_name" class="marketplace-input-box" placeholder="Last Name" value="<?= $last_name ?>" required>
+                    <input type="text" id="profile_suffix" name="profile_suffix" class="marketplace-input-box" placeholder="suffix (optional)" >
+                    <input type="text" id="profile_username" name="profile_username" class="marketplace-input-box" placeholder="username" value="<?= $_SESSION['username']?>" required>
+                    <input type="date" id="profile_birthday" name="profile_birthday" class="marketplace-input-box" placeholder="birthday" value="<?php echo $birthday; ?>" required>
+                    <input type="number" maxlength="11" id="profile_phone" name="profile_phone" class="marketplace-input-box" placeholder="Phone Number" value="<?php echo $phone; ?>" required>
+                    <input type="password" id="profile_oldpass" name="profile_oldpass" class="marketplace-input-box" placeholder="old password (optional)" value="" >
+                    <input type="password" id="profile_newpass" name="profile_newpass" class="marketplace-input-box" placeholder="new password (optional)" value="" >
+                    <input type="password" id="profile_confirmpass" name="profile_confirmpass" class="marketplace-input-box" placeholder="confirm password (optional)" value="" >
+                    <div class="custom-file-input">
+                        <label for="profile_profile_pic" class="custom-file-label">Choose File</label>
+                        <input type="file" id="profile_profile_pic" name="profile_profile_pic" class="marketplace-file-box" accept="image/*"  >
+                        <span id="profile_profile_name" class="file-name">No file chosen (optional)</span>
+                    </div>                 
+                    <select id="profile_gender" name="profile_gender" class="marketplace-input-box" value="<?= $gender ?>" required>
                         <option value="male">male</option>
                         <option value="female">female</option>
                         <option value="other">other</option>
                     </select>
-                    <label for="profile_pic" class="custom-file-label">Choose File</label>
-                        <input type="file" id="profile_pic" name="profile_pic" class="marketplace-file-box" accept="image/*" required>
-                        <span id="file-name" class="file-name">No file chosen</span>
-                        <input type="text" id="street" name="street" class="marketplace-input-box" placeholder="street" value="<?= $street ?>" required>
-                        <input type="text" id="barangay" name="barangay" class="marketplace-input-box" placeholder="barangay" value="<?= $barangay ?>" required>
-                        <input type="text" id="postal_code" name="postal_code" class="marketplace-input-box" placeholder="postal_code" value="<?= $postal_code ?>" required>
-                    <select id="region" name="region" class="marketplace-input-box" onchange="updateProvinces()" required>
-                    <option value="">Select Region</option>
+                        <input type="text" id="profile_street" name="profile_street" class="marketplace-input-box" placeholder="street" value="<?= $street ?>" required>
+                        <input type="text" id="profile_barangay" name="profile_barangay" class="marketplace-input-box" placeholder="barangay" value="<?= $barangay ?>" required>
+                        <input type="text" id="profile_postal_code" name="profile_postal_code" class="marketplace-input-box" placeholder="postal_code" value="<?= $postal_code ?>" required>
+                        <select id="profile_region" name="profile_region" class="marketplace-input-box" onchange="updateProvinces()" required>
+                    <option value="<?= $region ?>"><?= $region ?></option>
                             <option value="NCR">NCR</option>
                             <option value="CAR">CAR</option>
                             <option value="Region 1">Region 1</option>
@@ -189,19 +194,18 @@ if (isset($_SESSION['user_id'])) {
                             <option value="CARAGA">CARAGA</option>
                             <option value="BARMM">BARMM</option>
                     </select>
-                    <select id="province" name="province" class="marketplace-input-box" onchange="updateCities()" required>
-                    <option value="" >Select Province</option>
+                    <select id="profile_province" name="profile_province" class="marketplace-input-box" onchange="updateCities()" required>
+                    <option value="<?= $province ?>" ><?= $province ?></option>
                     </select>
-                    <select id="city" name="city" class="marketplace-input-box" required>
-                    <option value="" >Select City</option>
+                    <select id="profile_city" name="profile_city" class="marketplace-input-box" required>
+                    <option value="<?= $city ?>" ><?= $city ?></option>
                     </select>
-                    <button class="add-product-button" onclick="updateProfile()" >Update Profile</button>
-                </div>
+                <button type="submit" class="add-product-button">Update Profile</button>
             </form>
-            
         </div>
     </div>
 </div>
+
 
     <!-- Right Section -->
 
@@ -211,104 +215,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <!-- sample recommend here -->
         <div class="recommended">
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Allen Siddayao</h3>
-                            <p>@allenibba123</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey foodies! 🌟 I just whipped up the fluffiest pancakes ever, and I couldn't wait to share
-                            the recipe with you all! Perfect for a cozy breakfast or brunch. Here's how you can make
-                            them too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image5.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Eli Thompson</h3>
-                            <p>@FoodieExplorerEli</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey everyone! 👋 I just whipped up the most indulgent Leche Flan, and I'm thrilled to share
-                            the recipe with you all! Perfect for a sweet treat after dinner or a special occasion.
-                            Here's how you can make it too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image6.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Hannah</h3>
-                            <p>@HomeChefHannah</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey everyone! 🙌 I just baked the most decadent, fudgy brownies, and I can't wait to share
-                            the recipe with you all! Perfect for a sweet treat any time of day. Here’s how you can make
-                            them too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image4.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Austin Arthur</h3>
-                            <p>@HealthyAustin</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey everyone! 👋 I just made the creamiest, most delightful homemade mac and cheese, and I'm
-                            excited to share the recipe with you all! Perfect for a comforting dinner or a hearty side
-                            dish. Here's how you can make it too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
+        <?php include 'backend/recommendation.php'; ?>
 
         </div>
     </div>
@@ -316,14 +223,16 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 
-
-
-
-
 <script src="js/main.js"></script>
 <script src="js/followingpost.js"></script>
-<script src="js/marketplace.js"></script>
 <script src="js/profile.js"></script>
+
+<script>
+    document.getElementById("profileform").addEventListener("submit", function() {
+        console.log("Form is being submitted!");
+    });
+</script>
+
 <script>
 const regions = {
     "NCR": {
@@ -446,13 +355,13 @@ const regions = {
 
 // Update provinces based on selected region
 function updateProvinces() {
-    const regionSelect = document.getElementById("region");
-    const provinceSelect = document.getElementById("province");
+    const regionSelect = document.getElementById("profile_region");
+    const provinceSelect = document.getElementById("profile_province");
     const selectedRegion = regionSelect.value;
 
     // Clear previous province and city selections
     provinceSelect.innerHTML = '<option value="">Select Province</option>';
-    document.getElementById("city").innerHTML = '<option value="">Select City</option>';
+    document.getElementById("profile_city").innerHTML = '<option value="">Select City</option>';
 
     // Populate provinces based on selected region
     if (selectedRegion && regions[selectedRegion]) {
@@ -468,9 +377,9 @@ function updateProvinces() {
 
 // Update cities based on selected province
 function updateCities() {
-    const regionSelect = document.getElementById("region").value;
-    const provinceSelect = document.getElementById("province").value;
-    const citySelect = document.getElementById("city");
+    const regionSelect = document.getElementById("profile_region").value;
+    const provinceSelect = document.getElementById("profile_province").value;
+    const citySelect = document.getElementById("profile_city");
 
     // Clear previous city selection
     citySelect.innerHTML = '<option value="">Select City</option>';
@@ -486,7 +395,9 @@ function updateCities() {
         });
     }
 }
+
 </script>
+
 </body>
 
 </html>

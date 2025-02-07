@@ -13,7 +13,7 @@ $search_query = isset($_GET['query']) ? '%' . $_GET['query'] . '%' : '';
 $sql_users = "SELECT user_id, first_name, last_name, username, profile_pic, city, barangay 
               FROM Users 
               WHERE (username LIKE ? OR first_name LIKE ? OR last_name LIKE ?) 
-              AND user_id != ?";
+              AND user_id != ? AND is_admin != 1";
 $stmt_users = $conn->prepare($sql_users);
 $stmt_users->bind_param("sssi", $search_query, $search_query, $search_query, $my_id);
 $stmt_users->execute();

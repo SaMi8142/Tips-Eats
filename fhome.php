@@ -82,9 +82,7 @@ if (isset($_SESSION['user_id'])) {
 
             <button class="profiletag-button" onclick="popup_logout()">···</button>
             <div class="dropdown-content" id="dropdown-content"> 
-                <a href="morders.php">Product Orders</a>
-                <a href="mhome.php">My Posts</a>
-                <a href="index.php">Log Out</a>
+            <?php include 'backend/checkdropdown.php'; ?>
             </div>
         </div>
     </div>
@@ -95,13 +93,7 @@ if (isset($_SESSION['user_id'])) {
         <h3 class="nav-logo">T&<span style="color: #994700;">Es</span></h3>
         <button class="nav-button" onclick="nav_logout()">···</button>
             <div class="navdown-content" id="navdown-content"> 
-                <a href="home.php">Home</a>
-                <a href="following.php">Following</a>
-                <a href="marketplace.php">MarketPlace</a>
-                <a href="orders.php">My Orders</a>
-                <a href="morders.php">Product Orders</a>
-                <a href="mhome.php">My Posts</a>
-                <a href="index.php">Log Out</a>
+            <?php include 'backend/checknavdown.php'; ?>
             </div>
             <a href="home.php" class="headtitle-newsfeed">
                 <p>News Feed</p>
@@ -126,7 +118,7 @@ if (isset($_SESSION['user_id'])) {
                 <input type="hidden" id="first_name" name="first_name" value="<?php echo $first_name; ?>">
                 <input type="hidden" id="last_name" name="last_name" value="<?php echo $last_name; ?>">
                 <input type="hidden" id="username" name="username" value="<?php echo $username; ?>">
-                <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_img ?>">
+                <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_pic ?>">
                 <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
                 <textarea class="input-box" rows="1" placeholder="Share your recipes and ideas.." id="post_content" name="post_content" required></textarea>
             </div>
@@ -159,7 +151,7 @@ if (isset($_SESSION['user_id'])) {
                     <input type="hidden" id="first_name" name="first_name" value="<?= $first_name ?>">
                     <input type="hidden" id="last_name" name="last_name" value="<?= $last_name ?>">
                     <input type="hidden" id="username" name="username" value="<?= $_SESSION['username']; ?>">
-                    <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_img ?>">
+                    <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_pic ?>">
                     <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
                     <input type="hidden" id="post_id" name="post_id" value="">
                     <textarea class="comment-box" rows="1" style="resize: none;" placeholder="Share your thoughts..." id="comment_content" name="comment_content" required></textarea>
@@ -228,108 +220,10 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <!-- sample recommend here -->
         <div class="recommended">
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Allen Siddayao</h3>
-                            <p>@allenibba123</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey foodies! 🌟 I just whipped up the fluffiest pancakes ever, and I couldn't wait to share
-                            the recipe with you all! Perfect for a cozy breakfast or brunch. Here's how you can make
-                            them too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image5.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Eli Thompson</h3>
-                            <p>@FoodieExplorerEli</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey everyone! 👋 I just whipped up the most indulgent Leche Flan, and I'm thrilled to share
-                            the recipe with you all! Perfect for a sweet treat after dinner or a special occasion.
-                            Here's how you can make it too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image6.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Hannah</h3>
-                            <p>@HomeChefHannah</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey everyone! 🙌 I just baked the most decadent, fudgy brownies, and I can't wait to share
-                            the recipe with you all! Perfect for a sweet treat any time of day. Here’s how you can make
-                            them too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="recommended-card">
-                <div class="recommended-card-header ">
-                    <div class="recommended-card-profile">
-                        <div>
-                            <img src="img/Avatar Image4.png" alt="profile" class="profile"></img>
-                        </div>
-                        <div class="recommended-card-content">
-                            <h3>Austin Arthur</h3>
-                            <p>@HealthyAustin</p>
-                        </div>
-                    </div>
-                    <div class="recommended-card-body">
-                        <p>Hey everyone! 👋 I just made the creamiest, most delightful homemade mac and cheese, and I'm
-                            excited to share the recipe with you all! Perfect for a comforting dinner or a hearty side
-                            dish. Here's how you can make it too:</p>
-                    </div>
-                    <div class="recommended-card-footer">
-                        <a href>
-                            <p>see more...</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
+        <?php include 'backend/recommendation.php'; ?>
 
         </div>
     </div>
-
 </div>
 
 

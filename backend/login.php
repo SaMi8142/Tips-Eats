@@ -39,6 +39,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $_SESSION['postal_code'] = $user['postal_code'];
             $_SESSION['username'] = $user['username'];
 
+            // Update log_date and set status to online
+            $update_stmt = $conn->prepare("UPDATE users SET log_date = NOW(), status = 'online' WHERE user_id = ?");
+            $update_stmt->bind_param("i", $user['user_id']);
+            $update_stmt->execute();
+            $update_stmt->close();
+
+
             // Redirect based on is_admin value
             if ($user['is_admin'] == 1) {
                 header("Location: ../adminHome.php");
@@ -53,6 +60,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         echo "<script>alert('User not found.'); window.location.href = '../index.php';</script>";
     }
 
+    $stmt->close();
     $conn->close();
 } else {
     echo "<script>alert('Please fill in both fields.'); window.location.href = '../index.php';</script>";

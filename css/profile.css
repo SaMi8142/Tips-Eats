@@ -82,3 +82,95 @@
     background-color: #ffd1a9;
    
   }
+
+  .profilediv{
+    width: 80%;
+  }
+
+  @media (max-width: 480px) {
+    .profile-card {
+      position: relative;
+      margin-bottom: 3vh;
+      height: auto;
+      display: flex;
+      
+    }
+    
+    .profile-card-header {
+      background-color: #ffe9d7;
+      padding: 1vw 1.1vw 1vw 1.1vw;
+      height: 25vh;
+      display: column;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 0.7vw;
+    }
+    
+    .profile-card-profile {
+      display: flex;
+    }
+  
+    .profile-pic {
+      width: 36vw;
+      height: 36vw;
+      border: transparent;
+      border-radius: 1vw;
+    }
+    
+    .profile-card-content {
+      background-color: #ffe9d7;
+      width: 100%;
+      margin-left: 1vw;
+    }
+  
+
+  .profile-card-content h2 {
+    padding-top: 0.5vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 6vw;
+    font-weight: bold;
+    width: 100%;
+  
+  }
+  
+  .profile-card-content h3 {
+    padding-top: 0.5vw;
+    margin: 0;
+    font-size: 2.5vw;
+    font-weight: bold;
+    width: 100%;
+  
+  }
+  
+  .profile-card-content p {
+    width: 2vw;
+    margin: 0;
+    font-size: 2.5vw;
+    color: #222222;
+    width: 100%;
+  }
+
+  .profile-button{
+    border-radius: 0.7vw;
+    text-align: center;
+    font-size: 3vw;
+    font-weight: 500;
+    border: 0.15vw solid #ddd;
+    width: 100%;
+    height: 3.5vh;
+    background-color: white;
+    font-family: "Poppins", sans-serif;
+    border: transparent;
+    transition: background-color 0.5s ease;
+   
+  }
+  
+  .profile-button:hover{
+    background-color: #ffd1a9;
+   
+  }
+  }

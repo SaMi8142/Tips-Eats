@@ -29,6 +29,18 @@ $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
+
+        // Query to count reviews for the product
+        $product_id = $row['product_id'];
+        $review_count_sql = "SELECT COUNT(*) AS review_count FROM Reviews WHERE product_id = ?";
+        $stmt = $conn->prepare($review_count_sql);
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $review_result = $stmt->get_result();
+        $review_row = $review_result->fetch_assoc();
+        $review_count = $review_row['review_count'];
+        $stmt->close();
+
             echo '<div class="post-container">';
             echo '    <div class="post-container-profile">';
             echo '        <div>';
@@ -52,13 +64,13 @@ $result = mysqli_query($conn, $sql);
 
             if ($row['user_id'] == $logged_in_user_id) {
                 echo '                    <button class="comment" onclick="openReviewProduct(' . htmlspecialchars($row['product_id']) . ')">Reviews</button>';
-                echo '                    <span class="count" id="review-count">0</span>';
+                echo '                    <span class="count" id="review-count">' . $review_count . '</span>';
                 echo '                    <button class="report" onclick="openUpdateProduct(' . htmlspecialchars($row['product_id']) . ', \'' . addslashes($row['product_title']) . '\', \'' . addslashes($row['product_content']) . '\', ' . htmlspecialchars($row['price']) . ')">Update</button>';
                 echo '                    <button class="report" onclick="deleteProduct(' . htmlspecialchars($row['product_id']) . ')">Delete</button>';
             } else {
                 echo '                    <button class="order" onclick="orderProduct(' . htmlspecialchars($row['user_id']) . ', ' . htmlspecialchars($row['product_id']) . ')">Add to Cart</button>';
                 echo '                    <button class="comment" onclick="openReviewProduct(' . htmlspecialchars($row['product_id']) . ')">Reviews</button>';
-                echo '                    <span class="count" id="review-count">0</span>';
+                echo '                    <span class="count" id="review-count">' . $review_count . '</span>';
                 echo '                    <button class="report" onclick="openReportProduct(' . htmlspecialchars($row['user_id']) . ', ' . htmlspecialchars($row['product_id']) . ', \'' . htmlspecialchars($_SESSION['username']) . '\', \'' . htmlspecialchars($row['username']) . '\')">Report</button>';
             }
             echo '                </div>';

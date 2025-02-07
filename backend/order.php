@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_result = $conn->query($product_sql);
     if ($product_result->num_rows > 0) {
         $product_row = $product_result->fetch_assoc();
-        $order_title = $product_row['product_title'];
+        $order_title = $conn->real_escape_string($product_row['product_title']);
         $order_price = $product_row['price'];
     } else {
         echo "Product not found.";
