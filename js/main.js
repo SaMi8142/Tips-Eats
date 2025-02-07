@@ -5,6 +5,12 @@ const counterValue = document.getElementById('counterValue');
 var already_clicked = false;
 var nav_clicked = false;
 
+window.addEventListener("unload", function () {
+    let data = JSON.stringify({ status: "offline" });
+    navigator.sendBeacon("backend/updateuserstatus.php", data);
+});
+
+
 // Function to log out the user
 function logoutUser() {
         // Make a simple GET request to the logout.php script
