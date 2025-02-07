@@ -245,6 +245,7 @@ function closeReportProduct(event) {
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 function reportProduct(event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
@@ -254,6 +255,9 @@ function reportProduct(event) {
         return;
     }
 
+=======
+function reportProduct() {
+>>>>>>> Stashed changes
 =======
 function reportProduct() {
 >>>>>>> Stashed changes
