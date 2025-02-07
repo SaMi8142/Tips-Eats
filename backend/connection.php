@@ -140,21 +140,6 @@ CREATE TABLE PostReports (
 );
 
 
-CREATE TABLE ProductReports (
-    report_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    reported_id INT NOT NULL,
-    reporter_username VARCHAR(50),
-    reported_username VARCHAR(50),
-    report_type VARCHAR(50),
-    report_issue VARCHAR(255),
-    report_description VARCHAR(255),  -- Updated to VARCHAR(255)
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE,
-    FOREIGN KEY (reported_id) REFERENCES Users(user_id) ON DELETE CASCADE
-);
-
-
 CREATE TABLE Reviews (
     review_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each review
     product_id INT NOT NULL,                  -- Links the review to a specific product

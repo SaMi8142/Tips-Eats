@@ -10,6 +10,12 @@ window.addEventListener("unload", function () {
     navigator.sendBeacon("backend/updateuserstatus.php", data);
 });
 
+// On page load, make sure the user is marked as "online"
+window.addEventListener("load", function () {
+    let data = JSON.stringify({ status: "online" });
+    navigator.sendBeacon("backend/updateuserstatus.php", data);
+});
+
 
 // Function to log out the user
 function logoutUser() {

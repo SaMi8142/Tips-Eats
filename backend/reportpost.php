@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $post_id = $_POST['product_id'] ?? 0;  // This should probably be 'post_id' rather than 'product_id' for consistency
     $reporter_username = $_POST['reporter_username'] ?? '';
     $reported_username = $_POST['reported_username'] ?? '';
-    $report_type = $_POST['report_type'] ?? 'Post';
+    $report_type = $_POST['report_type'];
     $report_issue = $_POST['report_issue'] ?? '';
     $report_description = $_POST['report_description'] ?? '';  // Get the report description
 
@@ -29,13 +29,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->close();
 
+
+if ($report_type == "Post"){
     // Update post status to 'reported'
     $updateStmt = $conn->prepare("UPDATE Posts SET status = 'reported' WHERE post_id = ?");
     $updateStmt->bind_param("i", $post_id);
     $updateStmt->execute();
     $updateStmt->close();
+} else {
+        // Update Products status to 'reported'
+        $updateStmt = $conn->prepare("UPDATE Products SET status = 'reported' WHERE product_id = ?");
+        $updateStmt->bind_param("i", $post_id);
+        $updateStmt->execute();
+        $updateStmt->close();
+}
 
-    echo json_encode(["success" => true, "message" => "Post reported successfully"]);
+    echo json_encode(["success" => true, "message" => "reported successfully"]);
 } else {
     echo json_encode(["success" => false, "message" => "Invalid request"]);
 }

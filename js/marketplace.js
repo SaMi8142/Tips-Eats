@@ -248,7 +248,7 @@ function reportProduct() {
     let form = document.getElementById("reportform");
     let formData = new FormData(form);
 
-    fetch("backend/reportproduct.php", {
+    fetch("backend/reportpost.php", {
         method: "POST",
         body: formData
     })
