@@ -118,7 +118,7 @@ if (isset($_SESSION['user_id'])) {
 
                 <input type="hidden" id="first_name" name="first_name" value="<?php echo $first_name; ?>">
                 <input type="hidden" id="last_name" name="last_name" value="<?php echo $last_name; ?>">
-                <input type="hidden" id="username" name="username" value="<?php echo $username; ?>">
+                <input type="hidden" id="username" name="username" value="<?php echo $_SESSION['username'] ?>">
                 <input type="hidden" id="profile_pic" name="profile_pic" value="<?= $profile_pic ?>">
                 <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
                 <textarea class="input-box" rows="1" placeholder="Share your recipes and ideas.." id="post_content" name="post_content" required></textarea>

@@ -135,7 +135,6 @@ CREATE TABLE PostReports (
     report_issue VARCHAR(255),
     report_description VARCHAR(255),  -- Updated to VARCHAR(255)
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE,
     FOREIGN KEY (reported_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
