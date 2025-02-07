@@ -244,8 +244,15 @@ function closeReportProduct(event) {
 }
 
 
-function reportProduct() {
+function reportProduct(event) {
     event.preventDefault(); // Prevent the form from submitting normally
+
+    // Front-end validation (if needed)
+    if (!document.getElementById("report_issue").value || !document.getElementById("report_description").value) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
     let form = document.getElementById("reportform");
     let formData = new FormData(form);
 
@@ -257,11 +264,12 @@ function reportProduct() {
     .then(data => {
         alert(data.message); // Show success or error message
         if (data.success) {
-            fetchProducts();
+            fetchProducts(); // Refresh products or do something after successful report
         }
     })
     .catch(error => console.error("Error:", error));
 }
+
 
 // Update modal button
 
