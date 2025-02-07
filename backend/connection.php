@@ -133,11 +133,12 @@ CREATE TABLE PostReports (
     reported_username VARCHAR(50),
     report_type VARCHAR(50),
     report_issue VARCHAR(255),
-    report_description VARCHAR(255),  -- Updated to VARCHAR(255)
+    report_description VARCHAR(255),
+    status_report ENUM('resolved', 'unresolved') NOT NULL DEFAULT 'unresolved',
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (post_id) REFERENCES Posts(post_id) ON DELETE CASCADE,
     FOREIGN KEY (reported_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
+
 
 
 CREATE TABLE Reviews (
