@@ -5,6 +5,44 @@ const counterValue = document.getElementById('counterValue');
 var already_clicked = false;
 var nav_clicked = false;
 
+// Function to log out the user
+function logoutUser() {
+        // Make a simple GET request to the logout.php script
+        fetch('backend/logout.php', {
+            method: 'GET', 
+            credentials: 'same-origin', 
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "index.php";  
+            } else {
+                console.error("Error logging out.");
+            }
+        })
+        .catch(error => {
+            console.error("Error during logout:", error);
+        })
+
+}
+
+
+
+// Add event listener for the logout <a> tag click
+document.getElementById("logout").addEventListener("click", function(event) {
+    event.preventDefault(); 
+    logoutUser();  
+});
+
+// Add event listener for the logout <a> tag click
+document.getElementById("logoutmobile").addEventListener("click", function(event) {
+    event.preventDefault(); 
+    logoutUser();  
+});
+
+
+
+// old input handling for decrementing and incrementing an input
+
 
 decrement.addEventListener('click', (event) => {
   event.preventDefault(); // Prevent default button behavior
@@ -464,4 +502,32 @@ function updatePost(){
     })
     .catch(error => console.error("Error:", error));
 }
+
+
+// Function to place an Recommend order button 
+function orderRProduct(seller_id, product_id) {
+    const order_quantity = 1;
+
+    const data = new URLSearchParams();
+    data.append('product_id', product_id);
+    data.append('seller_id', seller_id);
+    data.append('order_quantity', order_quantity);
+
+    fetch('backend/order.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data.toString()
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+        console.error('Error placing order: Success');
+    })
+    .catch(error => {
+        console.error('Error placing order:', error);
+    });
+}
+
 

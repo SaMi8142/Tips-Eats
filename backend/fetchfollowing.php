@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 $my_id = $_SESSION['user_id'];  
 
 // Fetch all users except the logged-in user
-$sql_users = "SELECT user_id, first_name, last_name, username, profile_pic, city, barangay FROM Users WHERE user_id != ?";
+$sql_users = "SELECT user_id, first_name, last_name, username, profile_pic, city, barangay FROM Users WHERE user_id != ? AND is_admin != 1";
 $stmt_users = $conn->prepare($sql_users);
 $stmt_users->bind_param("i", $my_id);
 $stmt_users->execute();

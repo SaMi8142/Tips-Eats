@@ -86,7 +86,7 @@ if ($result->num_rows > 0) {
         echo '<div class="post-container">';
         echo '    <div class="post-container-profile">';
         echo '        <div>';
-        echo '            <img src="' . htmlspecialchars($row['profile_pic']) . '" alt="profile" class="profile">';
+        echo '            <img src="backend/' . htmlspecialchars($row['profile_pic']) . '" alt="profile" class="profile">';
         echo '        </div>';
         echo '        <div class="post-container-content">';
         echo '            <h3>' . htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) . ' · ' . time_elapsed_string($row['date']) . '</h3>';
@@ -133,6 +133,7 @@ if ($result->num_rows > 0) {
     }
 } else {
     echo '<center><h3>No posts found.</h3></center>';
+    
 }
 
 $conn->close();

@@ -32,8 +32,10 @@ CREATE TABLE users (
     barangay VARCHAR(100),
     postal_code VARCHAR(10) NOT NULL,
     is_admin BOOLEAN NOT NULL DEFAULT FALSE,
-    log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('online', 'offline') NOT NULL DEFAULT 'offline'
 );
+
 
 
 CREATE TABLE Posts (
@@ -45,7 +47,7 @@ CREATE TABLE Posts (
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     username VARCHAR(50),
-    date TIMESTAMP,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Only set when a new row is inserted
     status ENUM('active', 'dismissed', 'reported') DEFAULT 'active'
 );
 
