@@ -245,6 +245,7 @@ function closeReportProduct(event) {
 
 
 function reportProduct() {
+    event.preventDefault(); // Prevent the form from submitting normally
     let form = document.getElementById("reportform");
     let formData = new FormData(form);
 
