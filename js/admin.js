@@ -119,12 +119,24 @@ function createLineChart(labels, values) {
                 legend: { position: "top" } // Position of the legend
             },
             scales: {
-                x: { title: { display: true, text: "Month" } },
-                y: { title: { display: true, text: "Number of Reports" }, beginAtZero: true }
+                x: { 
+                    title: { display: true, text: "Month" } 
+                },
+                y: {
+                    title: { display: true, text: "Number of Reports" }, 
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1, // Ensures whole numbers only
+                        callback: function(value) {
+                            return Number.isInteger(value) ? value : null; // Hide decimals
+                        }
+                    }
+                }
             }
         }
     });
 }
+
 
 function fetchActiveUsers() {
     fetch("backend/getActiveUsers.php")
