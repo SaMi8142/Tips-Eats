@@ -200,7 +200,9 @@ if (isset($_SESSION['user_id'])) {
                         <option value="poser">poser</option>
                     </select>
                     <input id="report_description" name="report_description" class="marketplace-search-box" placeholder="Tell us your complain..." maxlength="25" required>
+
                     <button class="add-product-button" type="submit" >Report Product</button>
+
                 </div>
             </form>
             

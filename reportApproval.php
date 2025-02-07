@@ -42,10 +42,10 @@ if (isset($data["action"])) {
         $report_type = $data["report_type"];
         if($report_type == 'Post'){
             $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id and report_type = '$report_type'";
-            $sql2 = "UPDATE posts SET status = 'dismissed' WHERE post_id = $id and report_type = '$report_type'";
+            $sql2 = "UPDATE posts SET status = 'active' WHERE post_id = $id and report_type = '$report_type'";
         } else {
             $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id and report_type = '$report_type'";
-            $sql2 = "UPDATE products SET status = 'dismissed' WHERE product_id = $id and report_type = '$report_type'";
+            $sql2 = "UPDATE products SET status = 'active' WHERE product_id = $id and report_type = '$report_type'";
         }
         
         if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
