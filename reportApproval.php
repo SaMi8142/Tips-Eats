@@ -19,7 +19,7 @@ if (isset($data["action"])) {
     // DELETE User
     if ($action === "approve" && isset($data["post_id"])) {
         $id = intval($data["post_id"]);
-        $sql1 = "DELETE FROM postreports WHERE post_id = $id";
+        $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id";
         $sql2 = "UPDATE posts SET status = 'dismissed' WHERE post_id = $id";
 
         if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
@@ -33,7 +33,7 @@ if (isset($data["action"])) {
     // UPDATE User
     elseif ($action === "disapprove" && isset($data["post_id"])) {
         $id = intval($data["post_id"]);
-        $sql1 = "DELETE FROM postreports WHERE post_id = $id";
+        $sql1 = "UPDATE postreports SET status_report = 'Resolved' WHERE post_id = $id";
         $sql2 = "UPDATE posts SET status = 'active' WHERE post_id = $id";
 
         if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
@@ -43,7 +43,6 @@ if (isset($data["action"])) {
         }
     }
 
-    // Invalid Action
     else {
         echo "Invalid request!";
     }

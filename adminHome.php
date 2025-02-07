@@ -30,29 +30,6 @@ if (isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tips&eats";
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$sql = "SELECT * FROM postreports";
-$result = mysqli_query($conn, $sql);
-
-$data = array();
-
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $data[] = $row;
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +67,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="bottom-sidenavbar">
                 <div class="profile-container">
                     <div class="admin-pic">
-                        <img src="img/Avatar Image.png" alt="" width="35px" style="border-radius: 50%; border: 2px solid rgb(19, 218, 19)">
+                        <img src="<?= $profile_img ?>" alt="" width="35px" style="border-radius: 50%; border: 2px solid rgb(19, 218, 19)">
                     </div>
                     <div class="admin-info">
                         <p><strong><?php echo $first_name . ' ' . $last_name; ?></strong><br>Administrator</p>
@@ -110,7 +87,36 @@ if (mysqli_num_rows($result) > 0) {
                     <p>Welcome Admin&nbsp;</p><p id="title-text"><?php echo $first_name; ?>!</p>
                 </div>
             </div>
+            <div class="main-content">
+                <div class="report-section">
+                    <div id="first-row">
+                        <div class="kpi">
+                            <p>Total No. of Active Users</p>
+                            <p>32</p>
+                        </div>
+                        <div class="kpi">
+                            <p>Total No. of Reports</p>
+                        </div>
+                        <div class="kpi">
+                            <p>Pending Approvals</p>
+                        </div>
+                    </div>
+                    <div id="second-row">
+                        <div class="report-charts">
+                            <p>Total Number of Reports per Month</p>
+                            <canvas id="reportLineChart"></canvas>
+                        </div>
+                        <div class="report-charts">
+                            <p>Total Number of Reports per Report Issue</p>
+                            <canvas id="reportPieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>

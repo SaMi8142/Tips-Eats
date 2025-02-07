@@ -42,7 +42,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM postreports";
+$sql = "SELECT * FROM postreports WHERE status_report = 'Unresolved'";
 $result = mysqli_query($conn, $sql);
 
 $data = array();
@@ -91,7 +91,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="bottom-sidenavbar">
                 <div class="profile-container">
                     <div class="admin-pic">
-                        <img src="img/Avatar Image.png" alt="" width="35px" style="border-radius: 50%; border: 2px solid rgb(19, 218, 19)">
+                        <img src="<?= $profile_img ?>" alt="" width="35px" style="border-radius: 50%; border: 2px solid rgb(19, 218, 19)">
                     </div>
                     <div class="admin-info">
                         <p><strong><?php echo $first_name . ' ' . $last_name; ?></strong><br>Administrator</p>
