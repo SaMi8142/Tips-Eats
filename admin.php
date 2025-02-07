@@ -140,7 +140,7 @@ if (mysqli_num_rows($result) > 0) {
                                 <td><?php echo $row["reported_username"];?></td>
                                 <td><?php echo $row["reporter_username"];?></td>
                                 <td>
-                                    <div class="document-column"><p><?php echo $row["report_type"];?></p></div>
+                                    <div class="document-column" onclick="displayPost(<?php echo $row['post_id']; ?>)"><p><?php echo $row["report_type"];?></p></div>
                                 </td>
                                 <td><?php echo $row["report_issue"];?></td>
                                 <td class="reportDesc"><?php echo $row["report_description"]?></td>

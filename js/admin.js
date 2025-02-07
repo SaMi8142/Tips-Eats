@@ -109,7 +109,7 @@ function createLineChart(labels, values) {
                 backgroundColor: "rgba(255, 87, 51, 0.2)", // Light fill under the line
                 borderWidth: 2,
                 tension: 0.3, // Smooth curve
-                pointRadius: 5, // Point size
+                pointRadius: 4, // Point size
                 pointBackgroundColor: "#FF5733"
             }]
         },
@@ -126,4 +126,54 @@ function createLineChart(labels, values) {
     });
 }
 
+function fetchActiveUsers() {
+    fetch("backend/getActiveUsers.php")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("activeUsersCount").innerText = data.active_users;
+        })
+        .catch(error => console.error("Error:", error));
+}
 
+// Refresh every 5 seconds
+setInterval(fetchActiveUsers, 5000);
+
+// Fetch immediately on page load
+fetchActiveUsers();
+
+function fetchTotalReports() {
+    fetch("backend/getTotalReports.php")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("totalReportCount").innerText = data.report_sum;
+        })
+        .catch(error => console.error("Error:", error));
+}
+
+// Refresh every 5 seconds
+setInterval(fetchTotalReports, 5000);
+
+// Fetch immediately on page load
+fetchTotalReports();
+
+
+
+function fetchPendingReports() {
+    fetch("backend/getPendingReports.php")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("totalPendingCount").innerText = data.pending_sum;
+        })
+        .catch(error => console.error("Error:", error));
+}
+
+// Refresh every 5 seconds
+setInterval(fetchPendingReports, 5000);
+
+// Fetch immediately on page load
+fetchPendingReports();
+
+
+function displayPost(post_id){
+    
+}

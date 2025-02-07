@@ -91,14 +91,16 @@ if (isset($_SESSION['user_id'])) {
                 <div class="report-section">
                     <div id="first-row">
                         <div class="kpi">
-                            <p>Total No. of Active Users</p>
-                            <p>32</p>
+                            <p>Active Users</p>
+                            <p class="value-indicator" id="activeUsersCount">0</p>
                         </div>
                         <div class="kpi">
                             <p>Total No. of Reports</p>
+                            <p class="value-indicator" id="totalReportCount">0</p>
                         </div>
                         <div class="kpi">
                             <p>Pending Approvals</p>
+                            <p class="value-indicator" id="totalPendingCount">0</p>
                         </div>
                     </div>
                     <div id="second-row">

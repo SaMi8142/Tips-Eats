@@ -188,6 +188,7 @@ html body {
     background-color: #EECCB0;
     border-radius: 20px;
     border:1px solid #994700;
+    cursor: pointer;
 }
 
 .action-column {
@@ -202,6 +203,7 @@ html body {
     justify-content: center;
     background-color: green;
     border-radius: 20%;
+    cursor: pointer;
 }
 
 #x-btn {
@@ -210,10 +212,11 @@ html body {
     justify-content: center;
     background-color: red;
     border-radius: 20%;
+    cursor: pointer;
 }
 
 td {
-    padding: 10px 5px;
+    padding: 1% 0.5%;
 }
 
 .popup_logout {
@@ -321,4 +324,9 @@ td {
 .report-charts canvas {
     width: auto;
     height: 80%;
+}
+
+.value-indicator {
+    font-size: 1.5rem;
+    color: #994700;
 }
