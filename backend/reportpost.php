@@ -1,4 +1,7 @@
 <?php
+
+// the new reportpost that handles both products and post reports
+
 include 'connection.php'; // Database connection
 
 if (session_status() == PHP_SESSION_NONE) {
