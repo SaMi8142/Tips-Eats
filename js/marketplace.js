@@ -244,23 +244,9 @@ function closeReportProduct(event) {
 }
 
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-function reportProduct(event) {
-    event.preventDefault(); // Prevent the form from submitting normally
 
-    // Front-end validation (if needed)
-    if (!document.getElementById("report_issue").value || !document.getElementById("report_description").value) {
-        alert("Please fill in all required fields.");
-        return;
-    }
+function reportProduct() {
 
-=======
-function reportProduct() {
->>>>>>> Stashed changes
-=======
-function reportProduct() {
->>>>>>> Stashed changes
     let form = document.getElementById("reportform");
     let formData = new FormData(form);
 
