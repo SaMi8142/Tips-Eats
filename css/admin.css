@@ -330,3 +330,124 @@ td {
     font-size: 1.5rem;
     color: #994700;
 }
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 15px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: none;
+    border: none;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background: #994700;
+    transition: all 0.3s ease;
+}
+
+/* for mobile view*/
+@media (max-width: 425px) {
+    html body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .main-container {
+        width: 100%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .side-navbar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 70%;
+        height: 100vh;
+        transition: 0.3s ease;
+        z-index: 999;
+    }
+
+    .side-navbar.active {
+        left: 0;
+    }
+
+    /* hamburger animation */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* main content adjustment */
+    .info-page {
+        width: 100%;
+        margin-left: 0;
+        display: flex;
+    }
+
+    .info-page {
+        width: 100%;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    #title div {
+        flex-direction: row;
+        margin-left: 30%;
+        font-size: 16px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .report-section {
+        height: auto;
+        gap: 15px;
+    }
+
+    #first-row {
+        flex-direction: column;
+        height: auto;
+        gap: 15px;
+    }
+
+    .kpi {
+        width: 100%;
+        padding: 10px;
+    }
+
+    #second-row {
+        flex-direction: column;
+        height: auto;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .report-charts {
+        width: 100%;
+        padding: 10px;
+        height: 300px;
+    }
+
+    .report-charts canvas {
+        width: 100%;
+        height: 80%;
+    }
+}
