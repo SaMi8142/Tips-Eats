@@ -455,8 +455,6 @@ td {
 
     .main-content {
         width: 100%;
-        position: absolute;
-        top: 8vh;
     }
 
     .report-section {
