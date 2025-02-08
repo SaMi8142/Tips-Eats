@@ -107,11 +107,9 @@ if (mysqli_num_rows($result) > 0) {
             </div>
         </div>
         <div class="info-page">
-            <div class="title-search">
-                <div id="title">
-                    <div>
-                        <p>Manage&nbsp;</p><p id="title-text">User Reports</p>
-                    </div>
+            <div id="title">
+                <div>
+                    <p>Manage&nbsp;</p><p id="title-text">User Reports</p>
                 </div>
             </div>
             <div class="table">
