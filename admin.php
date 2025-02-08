@@ -64,8 +64,15 @@ if (mysqli_num_rows($result) > 0) {
     <link rel="stylesheet" href="css/admin.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="js/admin.js"></script>
+
 </head>
 <body>
+    <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <div class="main-container">
         <div class="side-navbar">
             <div class="top-sidenavbar">
@@ -162,5 +169,29 @@ if (mysqli_num_rows($result) > 0) {
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const sideNavbar = document.querySelector('.side-navbar');
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                hamburger.classList.toggle('active');
+                sideNavbar.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!sideNavbar.contains(e.target) && !hamburger.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    sideNavbar.classList.remove('active');
+                }
+            });
+
+            sideNavbar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
 </body>
 </html> 

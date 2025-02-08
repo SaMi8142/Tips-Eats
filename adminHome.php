@@ -127,6 +127,23 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/admin.js"></script>
+    
+    <script>
+    const hamburger = document.querySelector('.hamburger');
+    const sideNavbar = document.querySelector('.side-navbar');
 
+    hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    sideNavbar.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+    if (!sideNavbar.contains(e.target) && !hamburger.contains(e.target)) {
+        hamburger.classList.remove('active');
+        sideNavbar.classList.remove('active');
+    }
+    });
+    </script>
 </body>
 </html>

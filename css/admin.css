@@ -374,6 +374,7 @@ td {
     html body {
         padding-left: 0;
         padding-right: 0;
+        background-color: white;
     }
 
     .main-container {
@@ -413,9 +414,13 @@ td {
 
     /* main content adjustment */
     .info-page {
-        width: 100%;
+        width: 100vw;
         margin-left: 0;
         display: flex;
+    }
+
+    .table {
+        transform: scale(0.5);
     }
 
     .info-page {
@@ -459,7 +464,7 @@ td {
 
     .report-charts {
         width: 100%;
-        padding: 10px;
+        padding: 10%;
         height: 300px;
     }
 
@@ -467,4 +472,5 @@ td {
         width: 100%;
         height: 80%;
     }
+    
 }
