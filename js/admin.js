@@ -86,49 +86,90 @@ fetch("backend/getReportsByMonth.php") // Fetch data from PHP script
     .then(data => {
         console.log(data); // Debugging: Check retrieved data
 
-        // Extract labels (months) and values (report counts)
-        let labels = data.map(item => item.report_month);
-        let values = data.map(item => item.total_reports);
+        // Define month order for sorting
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        // Convert data to objects with sortable keys
+        let dataPairs = data.map(item => {
+            let [year, monthName] = item.report_month.split("-"); // Extract year and month name
+            return {
+                year: parseInt(year), // Convert year to integer
+                month: monthNames.indexOf(monthName), // Get numerical month index (0-based)
+                monthLabel: `${monthName} ${year}`, // Display format (e.g., "January 2025")
+                value: item.total_reports
+            };
+        });
+
+        // Sort data chronologically by year and month
+        dataPairs.sort((a, b) => (a.year - b.year) || (a.month - b.month));
+
+        // Extract sorted labels and values
+        let labels = dataPairs.map(pair => pair.monthLabel);
+        let values = dataPairs.map(pair => pair.value);
 
         // Call function to create the line chart
         createLineChart(labels, values);
     })
     .catch(error => console.error("Error fetching data:", error));
 
+
+
+
 // Function to create a Chart.js line chart
 function createLineChart(labels, values) {
+    // Define the correct order of months
+    const monthOrder = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    // Create an array of objects for sorting
+    let dataPairs = labels.map((month, index) => ({
+        month,
+        value: values[index]
+    }));
+
+    // Sort by the predefined month order
+    dataPairs.sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
+
+    // Extract sorted labels and values
+    const sortedLabels = dataPairs.map(pair => pair.month);
+    const sortedValues = dataPairs.map(pair => pair.value);
+
+    // Create the chart
     const ctx = document.getElementById("reportLineChart").getContext("2d");
     new Chart(ctx, {
         type: "line",
         data: {
-            labels: labels, // X-axis: Months
+            labels: sortedLabels,
             datasets: [{
                 label: "Total Reports",
-                data: values, // Y-axis: Number of reports
-                borderColor: "#FF5733", // Line color
-                backgroundColor: "rgba(255, 87, 51, 0.2)", // Light fill under the line
+                data: sortedValues,
+                borderColor: "#FF5733",
+                backgroundColor: "rgba(255, 87, 51, 0.2)",
                 borderWidth: 2,
-                tension: 0.3, // Smooth curve
-                pointRadius: 4, // Point size
+                tension: 0.3,
+                pointRadius: 4,
                 pointBackgroundColor: "#FF5733"
             }]
         },
         options: {
             responsive: true,
             plugins: {
-                legend: { position: "top" } // Position of the legend
+                legend: { position: "top" }
             },
             scales: {
-                x: { 
-                    title: { display: true, text: "Month" } 
-                },
+                x: { title: { display: true, text: "Month" } },
                 y: {
-                    title: { display: true, text: "Number of Reports" }, 
+                    title: { display: true, text: "Number of Reports" },
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 1, // Ensures whole numbers only
+                        stepSize: 1,
                         callback: function(value) {
-                            return Number.isInteger(value) ? value : null; // Hide decimals
+                            return Number.isInteger(value) ? value : null;
                         }
                     }
                 }
@@ -136,6 +177,7 @@ function createLineChart(labels, values) {
         }
     });
 }
+
 
 
 function fetchActiveUsers() {
