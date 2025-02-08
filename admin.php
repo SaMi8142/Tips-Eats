@@ -79,7 +79,7 @@ if (mysqli_num_rows($result) > 0) {
                     <div id="navbuttons">
                         <div id="account-verif" onclick="window.location.href='adminHome.php'">
                             <img src="img/chart-area.png" alt="">
-                            <p>Home</p>
+                            <p>Analytics</p>
                         </div>
                         <div id="user-reports" onclick="window.location.href='admin.php'">
                             <img src="img/message-square-warning.png" alt="">
