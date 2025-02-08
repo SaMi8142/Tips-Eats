@@ -60,8 +60,8 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div id="navbuttons">
                         <div id="account-verif" onclick="window.location.href='adminHome.php'">
-                            <img src="img/house.png" alt="Home-icon">
-                            <p>Home</p>
+                            <img src="img/chart-area.png" alt="Home-icon">
+                            <p>Analytics</p>
                         </div>
                         <div id="user-reports" onclick="window.location.href='admin.php'">
                             <img src="img/message-square-warning.png" alt="Reports-icon">
