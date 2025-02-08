@@ -125,7 +125,7 @@ if (isset($_SESSION['user_id'])) {
                                 <div class="profile-card-content">
                                     <h2>My <span style="color: #994700;">Profile</span></h2>
                                     <h3><?php echo $first_name . ' ' . $last_name; ?></h3>
-                                    <p>@<?php echo $username; ?></p>
+                                    <p>@<?php echo $_SESSION['username']; ?></p>
                                     <p><?php echo $email; ?></p>
                                     <p><?= $street ?> <?= $barangay ?>, <?= $city ?> <?= $province ?> <?= $region ?> <?= $postal_code ?></p>
                                     <p><?php echo $phone; ?></p>
