@@ -375,6 +375,7 @@ td {
     html body {
         padding-left: 0;
         padding-right: 0;
+        background-color: white;
     }
 
     .main-container {
@@ -383,6 +384,7 @@ td {
 
     .hamburger {
         display: block;
+        position: fixed;
     }
 
     .side-navbar {
@@ -417,14 +419,6 @@ td {
         width: 100%;
         margin-left: 0;
         display: flex;
-<<<<<<< Updated upstream
-    }
-
-    .info-page {
-        width: 100%;
-        padding: 10px;
-        gap: 10px;
-=======
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
@@ -444,13 +438,13 @@ td {
         display: block;
         max-width: fit-content;
         top: 2%;
->>>>>>> Stashed changes
     }
 
     #title div {
         flex-direction: row;
-        margin-left: 30%;
         font-size: 16px;
+        justify-content: center;
+        margin-top: 1.5vh;
     }
 
     .main-content {
@@ -482,21 +476,18 @@ td {
 
     .report-charts {
         width: 100%;
-        padding: 10px;
-        height: 300px;
+        padding: 1rem;
+        height: auto;
     }
 
     .report-charts canvas {
         width: 100%;
         height: 80%;
     }
-<<<<<<< Updated upstream
-=======
     
     .table table {
         width: 100%;
         text-align: center;
         font-size: 0.8em;
     }
->>>>>>> Stashed changes
 }
