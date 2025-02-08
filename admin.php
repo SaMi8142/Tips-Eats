@@ -113,9 +113,6 @@ if (mysqli_num_rows($result) > 0) {
                         <p>Manage&nbsp;</p><p id="title-text">User Reports</p>
                     </div>
                 </div>
-                <div id="search">
-                    <input type="text" name="" id="" placeholder="Search user...">
-                </div>
             </div>
             <div class="table">
                 <table>
